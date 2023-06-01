@@ -50,9 +50,9 @@ The Mall Information System is a technology-driven solution that automates and s
 
 ![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_boI0iirlJM.png?raw=true)
 
-![App Screenshot]([https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_boI0iirlJM.png?raw=true](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_nVbR9FBw9E.png?raw=true))
+![App Screenshot]((https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_nVbR9FBw9E.png?raw=true))
 
-![App Screenshot]([https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_boI0iirlJM.png?raw=true](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_keBMH7SGRY.png?raw=true))
+![App Screenshot]((https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_keBMH7SGRY.png?raw=true))
 
 ![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_kSOy1iZ1vn.png?raw=true)
 
