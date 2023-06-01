@@ -22,6 +22,7 @@ bool exitProgram = false, found = false; // Flag to indicate if the ID was found
 
 void create_admin()
 {
+  system("cls");
   char username[MAX], password[MAX];
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
@@ -142,6 +143,7 @@ void create_admin()
 
 void remove_users()
 {
+  system("cls");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -209,6 +211,7 @@ void remove_users()
 
 void update_users()
 {
+  system("cls");
   int tmp_id;
   char tmp_uname[MAX], tmp_upass[MAX], tmp_type[MAX];
   char uname[MAX], upass[MAX], type[MAX];
@@ -322,6 +325,7 @@ void update_users()
 
 void search_users()
 {
+  system("cls");
   int option;
   int u_id;
   int tmp_id;
@@ -380,6 +384,7 @@ void search_users()
       system("cls");
       system("color A");
       break;
+
     case 2:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -413,6 +418,7 @@ void search_users()
       system("cls");
       system("color A");
       break;
+
     case 3:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -446,6 +452,7 @@ void search_users()
       system("cls");
       system("color A");
       break;
+
     case 4:
       goBack = 1; // Set the flag to go back
       system("cls");
@@ -471,6 +478,7 @@ void search_users()
 
 void display_users()
 {
+  system("cls");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -503,6 +511,7 @@ void display_users()
 
 void manage_users()
 {
+  system("cls");
   int option;
   int goBack = 0; // Flag variable to control going back
 
@@ -512,7 +521,6 @@ void manage_users()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Manage Users \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Manage Users]\n\n");
     printf("\t\t1. Create New Admin\n");
     printf("\t\t2. Remove Users\n");
     printf("\t\t3. Update Users\n");
@@ -529,26 +537,32 @@ void manage_users()
       system("cls");
       create_admin();
       break;
+
     case 2:
       system("cls");
       remove_users();
       break;
+
     case 3:
       system("cls");
       update_users();
       break;
+
     case 4:
       system("cls");
       search_users();
       break;
+
     case 5:
       system("cls");
       display_users();
       break;
+
     case 6:
       goBack = 1; // Set the flag to go back
       system("cls");
       break;
+
     default:
       system("cls");
       system("color C");

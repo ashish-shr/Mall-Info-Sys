@@ -45,23 +45,12 @@ typedef struct
   char item_status[MAX];
 } items;
 
-// typedef struct
-// {
-//   int item_id;
-//   char sto_name[MAX];
-//   char item_name[MAX];
-//   char item_brand[MAX];
-//   float item_price;
-//   float item_quantity;
-//   char item_status[MAX];
-// } items;
-
 int i, user_id;
 char ch;
 
-// Flag to indicate if the ID was found
 void add_stores()
 {
+  system("cls");
   stores sto;
   int num;
   bool exists;
@@ -179,116 +168,9 @@ void add_stores()
   fclose(store);
 }
 
-// void add_stores()
-// {
-//   stores sto;
-//   int num;
-//   bool exists;
-
-//   printf("\t\t-------------------------------------------------------------------------------------------\n");
-//   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
-//   printf("\t\t-------------------------------------------------------------------------------------------\n");
-//   printf("\n\t\t\xb3\xb0\xb3 Add Stores \xb3\xb0\xb3\n\n");
-
-//   // printf("\t\t[Add Stores]\n\n");
-
-//   store = fopen("data\\store.dat", "ab");
-//   if (store == NULL)
-//   {
-//     printf("Unable to access file.\n");
-//     exit(1);
-//   }
-
-//   printf("\t\tNo. of stores -> ");
-//   scanf("%d", &num);
-
-//   for (int i = 0; i < num; i++)
-//   {
-//     exists = false;
-
-//     printf("\t\tStore ID -> ");
-//     scanf("%d", &sto.store_id);
-//     int tmp_id = sto.store_id;
-
-//     rewind(store); // Move the file pointer to the beginning
-
-//     while (fread(&sto, sizeof(stores), 1, store) == 1)
-//     {
-//       if (sto.store_id == tmp_id)
-//       {
-//         exists = true;
-//         break;
-//       }
-//     }
-
-//     if (exists)
-//     {
-//       system("cls");
-//       system("color E");
-//       printf("\t\t------------------------------------------------------------------\n");
-//       printf("\n\t\t\t  Store with ID %d already exists.\n", tmp_id);
-//       printf("\n\t\t\t  Please enter a valid store ID.\n\n");
-//       printf("\t\t------------------------------------------------------------------\n");
-//       printf("\t\tOption -> ");
-//       ch = getche();
-//       getch();
-
-//       while (ch != '1' && ch != '2')
-//       {
-//         system("cls");
-//         system("color C");
-//         printf("\t\t------------------------------------------------------------------\n");
-//         printf("\n\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
-//         printf("\t\t------------------------------------------------------------------\n");
-//         printf("\n\t\t\t\t\tInvalid option! Please enter a valid option.\n\n");
-//         printf("\t\t------------------------------------------------------------------\n");
-//         printf("\t\tOption -> ");
-//         ch = getche();
-//         getch();
-//       }
-
-//       if (ch == '2')
-//       {
-//         system("color A");
-//         admin_panel();
-//         break; // Exit the loop if the user chooses to go back
-//       }
-//       else
-//       {
-//         system("cls");
-//         system("color A");
-//         i--; // Decrement i to repeat the current iteration and allow the user to input a new store ID
-//         continue;
-//       }
-//     }
-//     else
-//     {
-//       // If the ID doesn't exist, proceed to input other details and write to the file
-//       printf("\t\tStore Name -> ");
-//       getchar();
-//       scanf("%[^\n]s", sto.store_name);
-//       printf("\t\tStore Floor -> ");
-//       getchar();
-//       scanf("%d", &sto.store_floor);
-//       printf("\t\tStore Status -> ");
-//       getchar();
-//       scanf("%[^\n]s", sto.store_status);
-//       printf("\t\tStore Owner -> ");
-//       getchar();
-//       scanf("%[^\n]s", sto.store_owner);
-//       printf("\t\tStore Phone no. -> ");
-//       getchar();
-//       scanf("%[^\n]s", sto.store_phone);
-//       fwrite(&sto, sizeof(stores), 1, store);
-//       printf("\n");
-//     }
-//   }
-
-//   fclose(store);
-// }
-
 void remove_stores()
 {
+  system("cls");
   stores sto;
   items itm;
   char store_name[MAX];
@@ -428,15 +310,13 @@ void remove_stores()
 
 void update_stores()
 {
+  system("cls");
   stores sto;
   int store_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Update Stores \xb3\xb0\xb3\n\n");
-
-  // printf("\t\t[Update Stores]\n\n");
-
   printf("\t\tEnter ID of store to update -> ");
   scanf("%d", &store_id);
 
@@ -497,6 +377,7 @@ void update_stores()
 
     getch();
   }
+
   else
   {
     system("cls");
@@ -513,6 +394,7 @@ void update_stores()
     printf("\t\tOption -> ");
     ch = getche();
     getch();
+
     if (ch == '1')
     {
       system("cls");
@@ -526,6 +408,7 @@ void update_stores()
       system("color A");
       admin_panel();
     }
+
     else
     {
       system("cls");
@@ -546,6 +429,7 @@ void update_stores()
 
 void display_stores()
 {
+  system("cls");
   stores sto;
   FILE *store = fopen("data\\store.dat", "rb");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -577,6 +461,7 @@ void display_stores()
 
 void search_stores()
 {
+  system("cls");
   stores sto;
   int option;
   int s_id, s_floor;
@@ -589,7 +474,6 @@ void search_stores()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Search Stores \xb3\xb0\xb3\n\n");
-
     printf("\t\t1. Search by id\n");
     printf("\t\t2. Search by name\n");
     printf("\t\t3. Search by floor\n");
@@ -811,6 +695,7 @@ void search_stores()
 
 void add_items()
 {
+  system("cls");
   stores sto;
   items itm;
   int num;
@@ -820,8 +705,6 @@ void add_items()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Add Items \xb3\xb0\xb3\n\n");
-
-  // printf("\t\t[Add Items]\n\n");
   item = fopen("data\\item.dat", "ab");
   if (item == NULL)
   {
@@ -859,8 +742,6 @@ void add_items()
     {
       strcpy(itm.sto_name, store_name); // Assign the store name to the structure field
       itm.item_id = tmp_id;
-      // printf("\t\tItem ID -> ");
-      // scanf("%d", &itm.item_id);
       printf("\t\tItem Name -> ");
       getchar();
       scanf("%[^\n]s", itm.item_name);
@@ -929,6 +810,7 @@ void add_items()
 
 void remove_items()
 {
+  system("cls");
   items itm;
   int item_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -988,9 +870,8 @@ void remove_items()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
     system("cls");
-
-    // printf("Item with ID %d has been removed.\n", item_id);
   }
+
   else
   {
     remove("temp.dat");
@@ -1008,6 +889,7 @@ void remove_items()
     printf("\t\tOption -> ");
     ch = getche();
     getch();
+
     if (ch == '1')
     {
       system("cls");
@@ -1021,6 +903,7 @@ void remove_items()
       system("color A");
       user_panel();
     }
+
     else
     {
       system("cls");
@@ -1040,6 +923,7 @@ void remove_items()
 
 void update_items()
 {
+  system("cls");
   items itm;
   int item_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1157,6 +1041,7 @@ void update_items()
 
 void display_items()
 {
+  system("cls");
   items itm;
   printf("\t\t--------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
@@ -1187,6 +1072,7 @@ void display_items()
 
 void search_items()
 {
+  system("cls");
   items itm;
   int option;
   int i_id;
@@ -1198,8 +1084,6 @@ void search_items()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Search Items \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Search Items]\n\n");
-
     printf("\t\t1. Search by id\n");
     printf("\t\t2. Search by store\n");
     printf("\t\t3. Search by item\n");
@@ -1246,6 +1130,7 @@ void search_items()
       system("cls");
       system("color A");
       break;
+
     case 2:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1282,6 +1167,7 @@ void search_items()
       system("cls");
       system("color A");
       break;
+
     case 3:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1318,6 +1204,7 @@ void search_items()
       system("cls");
       system("color A");
       break;
+
     case 4:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1354,6 +1241,7 @@ void search_items()
       system("cls");
       system("color A");
       break;
+
     case 5:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1389,9 +1277,11 @@ void search_items()
       system("cls");
       system("color A");
       break;
+
     case 6:
       system("cls");
       break;
+
     default:
       system("cls");
       system("color C");
@@ -1409,71 +1299,9 @@ void search_items()
   } while (option != 6);
 }
 
-// void admin_panel()
-// {
-//   int option;
-//   do
-//   {
-//     printf("\t\t-------------------------------------------------------------------------------------------\n");
-//     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
-//     printf("\t\t-------------------------------------------------------------------------------------------\n");
-//     printf("\n\t\t\xb3\xb0\xb3 Admin Panel \xb3\xb0\xb3\n\n");
-//     printf("\t\t1. Add Stores\n");
-//     printf("\t\t2. Remove Stores\n");
-//     printf("\t\t3. Update Stores\n");
-//     printf("\t\t4. Display Stores\n");
-//     printf("\t\t5. Search Stores\n");
-//     printf("\t\t6. Manage Users\n");
-//     printf("\t\t7. Logout\n");
-//     printf("\t\t---------------------\n");
-//     printf("\t\tOption -> ");
-//     scanf("%d", &option);
-//     switch (option)
-//     {
-//     case 1:
-//       system("cls");
-//       add_stores();
-//       break;
-//     case 2:
-//       system("cls");
-//       remove_stores();
-//       break;
-//     case 3:
-//       system("cls");
-//       update_stores();
-//       break;
-//     case 4:
-//       system("cls");
-//       display_stores();
-//       break;
-//     case 5:
-//       system("cls");
-//       search_stores();
-//       break;
-//     case 6:
-//       system("cls");
-//       manage_users();
-//       break;
-//     case 7:
-//       system("cls");
-//       break;
-//     default:
-//       system("cls");
-//       system("color C");
-//       printf("\t\t-------------------------------------------------------------------------------------------\n");
-//       printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
-//       printf("\t\t-------------------------------------------------------------------------------------------\n");
-//       printf("\n\t\t\t\t\tInvalid option! Please enter a valid option.\n\n");
-//       printf("\t\t-------------------------------------------------------------------------------------------\n");
-//       getch();
-//       system("cls");
-//       system("color A");
-//     }
-
-//   } while (option != 7); //&& !exitProgram
-// }
 void admin_panel()
 {
+  system("cls");
   int option;
   do
   {
@@ -1482,7 +1310,6 @@ void admin_panel()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Admin Panel \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Home]\n\n");
     printf("\t\t1. Add Stores\n");
     printf("\t\t2. Remove Stores\n");
     printf("\t\t3. Update Stores\n");
@@ -1501,31 +1328,38 @@ void admin_panel()
       system("cls");
       add_stores();
       break;
+
     case 2:
       system("cls");
       remove_stores();
       break;
+
     case 3:
       system("cls");
       update_stores();
       break;
+
     case 4:
       system("cls");
       search_stores();
       break;
+
     case 5:
       system("cls");
       manage_users();
       break;
+
     case 6:
       system("cls");
       display_stores(); // Update the global flag to exit the program
       break;
+
     case 7:
       system("cls");
       exitProgram = true; // Update the global flag to exit the program
       home();
       break;
+
     default:
       system("cls");
       system("color C");
@@ -1548,6 +1382,7 @@ void admin_panel()
 
 void user_panel()
 {
+  system("cls");
   int option;
   do
   {
@@ -1555,7 +1390,6 @@ void user_panel()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 User Panel \xb3\xb0\xb3\n\n");
-    // printf("\t\t[User Panel]\n\n");
     printf("\t\t1. Add Items\n");
     printf("\t\t2. Remove Items\n");
     printf("\t\t3. Update Items\n");
@@ -1571,26 +1405,32 @@ void user_panel()
       system("cls");
       add_items();
       break;
+
     case 2:
       system("cls");
       remove_items();
       break;
+
     case 3:
       system("cls");
       update_items();
       break;
+
     case 4:
       system("cls");
       search_items();
       break;
+
     case 5:
       system("cls");
       display_items();
       break;
+
     case 6:
       system("cls");
       home();
       break;
+
     default:
       system("cls");
       system("color C");

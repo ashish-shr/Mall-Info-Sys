@@ -11,6 +11,7 @@ void home();
 
 void admin_log()
 {
+  system("cls");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -113,6 +114,7 @@ void admin_log()
 
 void user_log()
 {
+  system("cls");
   int user_id;
   char username[MAX], password[MAX], ouser[MAX], opass[MAX], type[MAX];
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -212,6 +214,7 @@ void user_log()
 
 void new_user()
 {
+  system("cls");
   char username[MAX], password[MAX];
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
@@ -330,6 +333,7 @@ void new_user()
 
 void home()
 {
+  system("cls");
   int option;
   do
   {
@@ -338,7 +342,6 @@ void home()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Home \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Home]\n\n");
     printf("\t\t1. Admin Login\n");
     printf("\t\t2. User Login\n");
     printf("\t\t3. Create New User\n");
@@ -373,6 +376,7 @@ void home()
       about_system();
       break;
     case 6:
+      system("cls");
       exitProgram = true; // Update the global flag to exit the program
       break;
     default:
@@ -394,74 +398,3 @@ void home()
     }
   } while (!exitProgram);
 }
-
-// void admin_panel()
-// {
-//   int option;
-//   do
-//   {
-//     system("color A");
-//     printf("\t\t-------------------------------------------------------------------------------------------\n");
-//     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
-//     printf("\t\t-------------------------------------------------------------------------------------------\n");
-//     printf("\n\t\t\xb3\xb0\xb3 Admin Panel \xb3\xb0\xb3\n\n");
-//     // printf("\t\t[Home]\n\n");
-//     printf("\t\t1. Add Stores\n");
-//     printf("\t\t2. Remove Stores\n");
-//     printf("\t\t3. Update Stores\n");
-//     printf("\t\t4. Display Stores\n");
-//     printf("\t\t5. Search Stores\n");
-//     printf("\t\t6. Manage Users\n");
-//     printf("\t\t7. Logout\n");
-//     printf("\t\t---------------------\n");
-//     printf("\t\tOption -> ");
-//     scanf("%d", &option);
-//     getchar(); // Clear the newline character from the input buffer
-
-//     switch (option)
-//     {
-//     case 1:
-//       system("cls");
-//       add_stores();
-//       break;
-//     case 2:
-//       system("cls");
-//       remove_stores();
-//       break;
-//     case 3:
-//       system("cls");
-//       update_stores();
-//       break;
-//     case 4:
-//       system("cls");
-//       display_stores();
-//       break;
-//     case 5:
-//       system("cls");
-//       search_stores();
-//       break;
-//     case 6:
-//       manage_users(); // Update the global flag to exit the program
-//       break;
-//     case 7:
-//       exitProgram = true; // Update the global flag to exit the program
-//       break;
-//     default:
-//       system("cls");
-//       system("color C");
-//       printf("\t\t-------------------------------------------------------------------------------------------\n");
-//       printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
-//       printf("\t\t-------------------------------------------------------------------------------------------\n");
-//       printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
-//       printf("\t\t-------------------------------------------------------------------------------------------\n");
-//       getch();
-//       system("cls");
-//       system("color A");
-//     }
-
-//     if (!exitProgram)
-//     {
-//       system("cls");
-//     }
-//   } while (!exitProgram);
-// }

@@ -3,6 +3,7 @@
 
 void about_system()
 {
+  system("cls");
   system("color B");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
