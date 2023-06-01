@@ -50,6 +50,7 @@ void mall_details()
 
 void credits()
 {
+  system("cls");
   system("color B");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t\xdb\xdb\xdb\xb3Support this project\xb3\xdb\xdb\xdb\n");
@@ -74,7 +75,6 @@ int main()
     mall_details();
   }
   home();
-  system("cls");
   credits();
   system("cls");
   return 0;
