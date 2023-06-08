@@ -48,9 +48,9 @@ typedef struct
 int i, user_id;
 char ch;
 
+// Flag to indicate if the ID was found
 void add_stores()
 {
-  system("cls");
   stores sto;
   int num;
   bool exists;
@@ -170,7 +170,6 @@ void add_stores()
 
 void remove_stores()
 {
-  system("cls");
   stores sto;
   items itm;
   char store_name[MAX];
@@ -310,13 +309,15 @@ void remove_stores()
 
 void update_stores()
 {
-  system("cls");
   stores sto;
   int store_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Update Stores \xb3\xb0\xb3\n\n");
+
+  // printf("\t\t[Update Stores]\n\n");
+
   printf("\t\tEnter ID of store to update -> ");
   scanf("%d", &store_id);
 
@@ -377,7 +378,6 @@ void update_stores()
 
     getch();
   }
-
   else
   {
     system("cls");
@@ -394,7 +394,6 @@ void update_stores()
     printf("\t\tOption -> ");
     ch = getche();
     getch();
-
     if (ch == '1')
     {
       system("cls");
@@ -408,7 +407,6 @@ void update_stores()
       system("color A");
       admin_panel();
     }
-
     else
     {
       system("cls");
@@ -429,7 +427,6 @@ void update_stores()
 
 void display_stores()
 {
-  system("cls");
   stores sto;
   FILE *store = fopen("data\\store.dat", "rb");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -461,7 +458,6 @@ void display_stores()
 
 void search_stores()
 {
-  system("cls");
   stores sto;
   int option;
   int s_id, s_floor;
@@ -474,6 +470,7 @@ void search_stores()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Search Stores \xb3\xb0\xb3\n\n");
+
     printf("\t\t1. Search by id\n");
     printf("\t\t2. Search by name\n");
     printf("\t\t3. Search by floor\n");
@@ -695,7 +692,6 @@ void search_stores()
 
 void add_items()
 {
-  system("cls");
   stores sto;
   items itm;
   int num;
@@ -705,6 +701,8 @@ void add_items()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Add Items \xb3\xb0\xb3\n\n");
+
+  // printf("\t\t[Add Items]\n\n");
   item = fopen("data\\item.dat", "ab");
   if (item == NULL)
   {
@@ -742,6 +740,8 @@ void add_items()
     {
       strcpy(itm.sto_name, store_name); // Assign the store name to the structure field
       itm.item_id = tmp_id;
+      // printf("\t\tItem ID -> ");
+      // scanf("%d", &itm.item_id);
       printf("\t\tItem Name -> ");
       getchar();
       scanf("%[^\n]s", itm.item_name);
@@ -810,7 +810,6 @@ void add_items()
 
 void remove_items()
 {
-  system("cls");
   items itm;
   int item_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -870,8 +869,9 @@ void remove_items()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
     system("cls");
-  }
 
+    // printf("Item with ID %d has been removed.\n", item_id);
+  }
   else
   {
     remove("temp.dat");
@@ -889,7 +889,6 @@ void remove_items()
     printf("\t\tOption -> ");
     ch = getche();
     getch();
-
     if (ch == '1')
     {
       system("cls");
@@ -903,7 +902,6 @@ void remove_items()
       system("color A");
       user_panel();
     }
-
     else
     {
       system("cls");
@@ -923,7 +921,6 @@ void remove_items()
 
 void update_items()
 {
-  system("cls");
   items itm;
   int item_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1041,7 +1038,6 @@ void update_items()
 
 void display_items()
 {
-  system("cls");
   items itm;
   printf("\t\t--------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
@@ -1072,7 +1068,6 @@ void display_items()
 
 void search_items()
 {
-  system("cls");
   items itm;
   int option;
   int i_id;
@@ -1084,6 +1079,8 @@ void search_items()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Search Items \xb3\xb0\xb3\n\n");
+    // printf("\t\t[Search Items]\n\n");
+
     printf("\t\t1. Search by id\n");
     printf("\t\t2. Search by store\n");
     printf("\t\t3. Search by item\n");
@@ -1130,7 +1127,6 @@ void search_items()
       system("cls");
       system("color A");
       break;
-
     case 2:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1167,7 +1163,6 @@ void search_items()
       system("cls");
       system("color A");
       break;
-
     case 3:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1204,7 +1199,6 @@ void search_items()
       system("cls");
       system("color A");
       break;
-
     case 4:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1241,7 +1235,6 @@ void search_items()
       system("cls");
       system("color A");
       break;
-
     case 5:
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -1277,11 +1270,9 @@ void search_items()
       system("cls");
       system("color A");
       break;
-
     case 6:
       system("cls");
       break;
-
     default:
       system("cls");
       system("color C");
@@ -1301,7 +1292,6 @@ void search_items()
 
 void admin_panel()
 {
-  system("cls");
   int option;
   do
   {
@@ -1328,38 +1318,31 @@ void admin_panel()
       system("cls");
       add_stores();
       break;
-
     case 2:
       system("cls");
       remove_stores();
       break;
-
     case 3:
       system("cls");
       update_stores();
       break;
-
     case 4:
       system("cls");
       search_stores();
       break;
-
     case 5:
       system("cls");
       manage_users();
       break;
-
     case 6:
       system("cls");
-      display_stores(); // Update the global flag to exit the program
+      display_stores();
       break;
-
     case 7:
       system("cls");
       exitProgram = true; // Update the global flag to exit the program
       home();
       break;
-
     default:
       system("cls");
       system("color C");
@@ -1382,7 +1365,6 @@ void admin_panel()
 
 void user_panel()
 {
-  system("cls");
   int option;
   do
   {
@@ -1405,32 +1387,26 @@ void user_panel()
       system("cls");
       add_items();
       break;
-
     case 2:
       system("cls");
       remove_items();
       break;
-
     case 3:
       system("cls");
       update_items();
       break;
-
     case 4:
       system("cls");
       search_items();
       break;
-
     case 5:
       system("cls");
       display_items();
       break;
-
     case 6:
       system("cls");
       home();
       break;
-
     default:
       system("cls");
       system("color C");
