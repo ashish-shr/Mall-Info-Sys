@@ -29,10 +29,20 @@ The Mall Information System is a technology-driven solution that automates and s
 [Click here for detailed Documentation](https://drive.google.com/file/d/1zi1gW6-FtgYL2vPxnvCHDDNSFrT8ISE5/view?usp=sharing)
 
 
-## Authors
+## Authors ✒️
 
 [@ashishshrestha](https://github.com/ashish-shr/)
 
+
+## FAQ 🤔
+
+#### What is the Mall Information System?
+
+The Mall Information System is a software application designed to manage and streamline various operations within a mall, including stores and items management, user Information and more.
+
+#### What are the key features of the Mall Information System?
+
+Some of the key features of the Mall Information System include Mall Administration, Store Management, Item Management, User Management, Information Display, Scalability and Flexibility.
 
 ## Screenshots 🖼️
 
@@ -49,6 +59,10 @@ The Mall Information System is a technology-driven solution that automates and s
 ![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_GpCSrCjhL4.png?raw=true)
 
 ![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_boI0iirlJM.png?raw=true)
+
+![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_nVbR9FBw9E.png?raw=true)
+
+![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_keBMH7SGRY.png?raw=true)
 
 ![App Screenshot](https://github.com/ashish-shr/Mall-Info-Sys/blob/main/screenshots/Code_kSOy1iZ1vn.png?raw=true)
 
