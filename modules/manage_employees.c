@@ -6,54 +6,139 @@
 
 #define MAX 100
 
-void home();
-void add_log();
-void login();
-void manage_users();
-void create_admin();
-void display_users();
-void remove_users();
-void update_users();
-void search_users();
-
 int i, user_id;
 char ch;
-FILE *store = NULL, *item = NULL;
+FILE *user = NULL, *backup = NULL, *tmp_file = NULL, *employee_del = NULL;
+bool exitProgram = false, found = false;
 
-void create_admin()
+typedef struct
 {
-  char username[MAX], password[MAX];
+  int employee_id;
+  char employee_name[MAX];
+  char employee_position[MAX];
+  char employee_address[MAX];
+  char employee_phone[MAX];
+  float employee_salary;
+} employee;
+
+employee emp;
+
+void home();
+void manage_employee();
+void add_employee();
+void display_employee();
+void remove_employee();
+void update_employee();
+void search_employee();
+
+void add_employee()
+{
+  system("cls");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\n\t\t\xb3\xb0\xb3 Create Admin \xb3\xb0\xb3\n\n");
-
-  FILE *user = NULL;
-  user = fopen("data\\user_logs.txt", "a+");
+  printf("\n\t\t\xb3\xb0\xb3 Add Employee \xb3\xb0\xb3\n\n");
+  user = fopen("data\\employee.dat", "ab");
+  backup = fopen("backup\\employee_rev.dat", "ab");
+  employee_del = fopen("trash\\employee_del.dat", "ab");
   if (user == NULL)
   {
     printf("Unable to access file.\n");
     exit(1);
   }
-  printf("\t\tAdmin Id -> ");
-  scanf("%d", &user_id);
-  printf("\t\tAdmin Username -> ");
-  scanf("%s", username);
-
-  // Check if username already exists
-  bool usernameExists = false;
-  char storedUsername[MAX];
-  while (fscanf(user, "%s", storedUsername) == 1)
+  int i, num;
+  printf("\t\tNo. of employees -> ");
+  scanf("%d", &num);
+  for (i = 0; i < num; i++)
   {
-    if (strcmp(username, storedUsername) == 0)
+    printf("\t\tEmployee ID -> ");
+    scanf(" %d", &emp.employee_id);
+    printf("\t\tEmployee Name -> ");
+    scanf(" %[^\n]s", emp.employee_name);
+    printf("\t\tEmployee Position -> ");
+    scanf(" %[^\n]s", emp.employee_position);
+    printf("\t\tEmployee Address -> ");
+    scanf(" %[^\n]s", emp.employee_address);
+    printf("\t\tEmployee Phone -> ");
+    scanf(" %[^\n]s", emp.employee_phone);
+    printf("\t\tEmployee Salary -> ");
+    scanf(" %f", &emp.employee_salary);
+    fwrite(&emp, sizeof(employee), 1, user);
+    fwrite(&emp, sizeof(employee), 1, backup);
+    fwrite(&emp, sizeof(employee), 1, employee_del);
+  }
+
+  fclose(user);
+  fclose(backup);
+  fclose(employee_del);
+  system("cls");
+}
+
+void remove_employee()
+{
+  system("cls");
+  system("color A");
+  int e_id;
+  char emp_name[MAX];
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\n\t\t\xb3\xb0\xb3 Remove Stores \xb3\xb0\xb3\n\n");
+
+  printf("\t\tEnter the ID of employee to remove -> ");
+  scanf("%d", &e_id);
+  printf("\t\tEnter the name of employee to remove -> ");
+  scanf(" %[^\n]", emp_name);
+  getchar();
+
+  user = fopen("data\\employee.dat", "rb+");
+  backup = fopen("backup\\employee_rev.dat", "rb+");
+
+  if (user == NULL)
+  {
+    printf("Unable to access employee file.\n");
+    exit(1);
+  }
+
+  FILE *tmp_emp_file = fopen("temp_emp.dat", "wb");
+  FILE *tmp_emp_rev = fopen("temp_emp_rev.dat", "wb");
+  if (tmp_emp_file == NULL)
+  {
+    printf("Unable to create the temporary files.\n");
+    exit(1);
+  }
+
+  bool found = false;
+
+  // Read records from the original store file and write to the temporary store file
+  while (fread(&emp, sizeof(employee), 1, user) == 1)
+  {
+    if (emp.employee_id == e_id)
     {
-      usernameExists = true;
-      break;
+      found = true;
+    }
+    else
+    {
+      fwrite(&emp, sizeof(employee), 1, tmp_emp_file);
+      fwrite(&emp, sizeof(employee), 1, tmp_emp_rev);
     }
   }
 
-  if (usernameExists)
+  // Close the store and item files
+  fclose(user);
+  fclose(backup);
+  fclose(tmp_emp_file);
+  fclose(tmp_emp_rev);
+
+  if (found)
   {
+    // Delete the original store file
+    remove("data\\employee.dat");
+    remove("backup\\employee_rev.dat");
+
+    // Rename the temporary store file to the original store file name
+    rename("temp_emp.dat", "data\\employee.dat");
+    rename("temp_emp_rev.dat", "backup\\employee_rev.dat");
 
     system("cls");
     system("color E");
@@ -61,27 +146,42 @@ void create_admin()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\t\tUsername already exists! Please choose a different username.\n\n");
-    printf("\t\t\t\t1. Try Again\n");
-    printf("\t\t\t\t2. Return to home\n\n");
+    printf("\n\t\t\t\t\t  Employee '%s' has been removed.\n", emp_name);
+    printf("\n\t\t\t\t\t  Press enter to continue.\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    getch();
+    system("color A");
+    system("cls");
+  }
+  else
+  {
+    remove("temp_emp.dat");
+    remove("temp_emp_rev.dat");
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\t    Employee '%s' does not exist.\n\n", emp_name);
+    printf("\n\t\t\t\t\t    Please enter a valid employee name.\n\n");
+    printf("\t\t\t\t\t    1. Try Again\n");
+    printf("\t\t\t\t\t    2. Go Back\n\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n\n");
     printf("\t\tOption -> ");
-    ch = getche();
-    getch();
-
+    ch = getchar();
+    getchar();
     if (ch == '1')
     {
       system("cls");
       system("color A");
-      create_admin();
+      remove_employee();
     }
-
     else if (ch == '2')
     {
       system("cls");
-      home();
+      system("color A");
+      manage_employee();
     }
-
     else
     {
       system("cls");
@@ -94,219 +194,106 @@ void create_admin()
       getch();
       system("cls");
       system("color A");
-      create_admin();
+      remove_employee();
     }
-    system("cls");
-    system("color A");
-  }
-
-  // Clear the file pointer and move to the end of the file for writing
-  fseek(user, 0, SEEK_END);
-
-  printf("\t\tAdmin Password -> ");
-
-  int i = 0;
-  while (1)
-  {
-    char ch = getch();
-
-    if (ch == '\r') // If Enter key is pressed, break the loop
-      break;
-
-    else if (ch == '\b' && i > 0) // If Backspace key is pressed, decrement i and move back the cursor
-    {
-      i--;
-      printf("\b \b");
-    }
-
-    else if (ch != '\b') // If any other key is pressed, store it in the password array and display asterisk on the screen
-    {
-      password[i] = ch;
-      i++;
-      printf("*");
-    }
-  }
-
-  password[i] = '\0'; // Add null character to mark the end of the password array
-
-  fprintf(user, "\n%d\t%s\t%s\t%s\n", user_id, username, password, "admin");
-  fclose(user);
-
-  system("cls");
-  system("color E");
-
-  printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
-  printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\n\t\t\tNew admin created successfully!\n");
-  printf("\n\t\t\tPress enter to login.\n");
-  printf("\t\t-------------------------------------------------------------------------------------------\n");
-  getch();
-  system("cls");
-  login();
-}
-
-void remove_users()
-{
-  printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
-  printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\n\t\t\xb3\xb0\xb3 Remove Users \xb3\xb0\xb3\n\n");
-
-  bool found_user = false;
-  int user_id, tmp_id;
-  char tmp_user[MAX];
-
-  printf("\t\tEnter ID of user to remove -> ");
-  scanf("%d", &user_id);
-
-  user = fopen("data\\user_logs.txt", "r");
-  tmp_file = fopen("temp.dat", "w");
-
-  if (user == NULL || user == NULL || tmp_file == NULL)
-  {
-    printf("Unable to remove users!\n");
-    exit(1);
-  }
-
-  while (fscanf(user, "%d %[^\n]\n", &tmp_id, tmp_user) != EOF)
-  {
-    if (tmp_id == user_id)
-    {
-      found_user = true;
-    }
-
-    else
-    {
-      fprintf(tmp_file, "%d %s\n", tmp_id, tmp_user);
-    }
-  }
-
-  fclose(user);
-  fclose(tmp_file);
-
-  if (found_user)
-  {
-    system("cls");
-    system("color E");
-
-    remove("data\\user_logs.txt");
-    rename("temp.dat", "data\\user_logs.txt");
-    printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
-    printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\t\t\t  User with ID %d has been removed from user_logs.txt.\n", user_id);
-    printf("\n\t\t\t\t\t  Press enter to continue.\n\n");
-    printf("\t\t-------------------------------------------------------------------------------------------\n");
-    getch();
-    system("color A");
-
-    system("cls");
-  }
-
-  else
-  {
-    system("cls");
-    system("color E");
-
-    remove("temp.dat");
-    printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
-    printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\t\t\t  User with ID %d does not exist.\n\n", user_id);
-    printf("\n\t\t\t\t\t  Press enter to continue.\n\n");
-    printf("\t\t-------------------------------------------------------------------------------------------\n");
-    getch();
-    system("color A");
-
-    system("cls");
   }
 }
 
-void update_users()
+void update_employee()
 {
-  int tmp_id;
-  char tmp_uname[MAX], tmp_upass[MAX], tmp_type[MAX];
-  char uname[MAX], upass[MAX], type[MAX];
+  system("cls");
+  system("color A");
+  int emp_id;
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\n\t\t\xb3\xb0\xb3 Update Users \xb3\xb0\xb3\n\n");
+  printf("\n\t\t\xb3\xb0\xb3 Update Employees \xb3\xb0\xb3\n\n");
 
-  // printf("\t\t[Update Users]\n\n");
+  printf("\t\tEnter ID of employee to update -> ");
+  scanf("%d", &emp_id);
 
-  printf("\t\tEnter ID of user to update -> ");
-  scanf("%d", &user_id);
-
-  user = fopen("data\\user_logs.txt", "r+");
-
+  user = fopen("data\\employee.dat", "rb+");
+  backup = fopen("backup\\employee_rev.dat", "rb+");
   if (user == NULL)
   {
     printf("Unable to access file.\n");
     exit(1);
   }
 
-  tmp_file = fopen("temp.dat", "w");
-
-  if (tmp_file == NULL)
+  // Search for the store based on the ID
+  while (fread(&emp, sizeof(employee), 1, user) == 1)
   {
-    printf("Unable to create temporary file.\n");
-    fclose(user);
-    exit(1);
-  }
-
-  // Search for the user based on the ID
-  while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_uname, tmp_upass, tmp_type) != EOF)
-  {
-    if (tmp_id == user_id)
+    if (emp.employee_id == emp_id)
     {
       found = true; // ID found in the file
 
-      printf("\t\tUser name (current: %s) -> ", tmp_uname);
-      scanf("%s", uname);
-      printf("\t\tPassword (current: %s) -> ", tmp_upass);
-      scanf("%s", upass);
+      printf("\t\tEmployee ID (current: %d) -> ", emp.employee_id);
+      getchar();
+      scanf("%d", &emp.employee_id);
 
-      // Write the updated record to the temporary file
-      fprintf(tmp_file, "%d %s %s %s\n", user_id, uname, upass, tmp_type);
-    }
+      printf("\t\tEmployee Name (current: %s) -> ", emp.employee_name);
+      getchar();
+      scanf("%[^\n]s", emp.employee_name);
 
-    else
-    {
-      // Write the existing record to the temporary file
-      fprintf(tmp_file, "%d %s %s %s\n", tmp_id, tmp_uname, tmp_upass, tmp_type);
+      printf("\t\tEmployee Position (current: %s) -> ", emp.employee_position);
+      getchar();
+      scanf("%[^\n]s", emp.employee_position);
+
+      printf("\t\tEmployee Address (current: %s) -> ", emp.employee_address);
+      getchar();
+      scanf("%[^\n]s", emp.employee_address);
+
+      printf("\t\tEmployee Phone (current: %s) -> ", emp.employee_phone);
+      getchar();
+      scanf("%[^\n]s", emp.employee_phone);
+
+      printf("\t\tEmployee Salary (current: %.2f) -> ", emp.employee_salary);
+      getchar();
+      scanf("%f", &emp.employee_salary);
+
+      // Move the file pointer back to update the record
+      fseek(user, -(long)sizeof(employee), SEEK_CUR);
+      fwrite(&emp, sizeof(employee), 1, user);
+      fseek(backup, -(long)sizeof(employee), SEEK_CUR);
+      fwrite(&emp, sizeof(employee), 1, backup);
+
+      break; // Exit the loop since the update is done
     }
   }
 
-  // Close the files
+  // Close the file
   fclose(user);
-  fclose(tmp_file);
-
-  // Remove the original file and rename the temporary file
-  remove("data\\user_logs.txt");
-  rename("temp.dat", "data\\user_logs.txt");
+  fclose(backup);
 
   if (found)
   {
     system("cls");
-    printf("\t\t------------------------------------------------------------------\n");
-    printf("\n\t\t\tUser with ID %d has been updated.\n", user_id);
-    printf("\n\t\t\tPress enter to continue.\n\n");
-    printf("\t\t------------------------------------------------------------------\n");
+    system("color E");
+
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\tEmployee with ID %d has been updated.\n", emp_id);
+    printf("\n\t\t\tPress enter to continue.\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+
     getch();
-    system("cls");
+    system("color A");
   }
 
   else
   {
-    remove("temp.dat");
     system("cls");
     system("color E");
-    printf("\t\t------------------------------------------------------------------\n");
-    printf("\n\t\t\tUser with ID %d does not exist.\n", user_id);
-    printf("\n\t\t\t 1. Try Again\n");
-    printf("\n\t\t\t 2. Go Back\n\n");
-    printf("\t\t------------------------------------------------------------------\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\tStore with ID %d does not exist.\n\n", emp_id);
+    printf("\n\t\t\t\t\tPlease enter valid store id.\n\n");
+    printf("\t\t\t\t\t1. Try Again\n");
+    printf("\t\t\t\t\t2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+
     printf("\t\tOption -> ");
     ch = getche();
     getch();
@@ -315,14 +302,14 @@ void update_users()
     {
       system("cls");
       system("color A");
-      update_users();
+      update_employee();
     }
 
     else if (ch == '2')
     {
       system("cls");
       system("color A");
-      manage_users();
+      manage_employee();
     }
 
     else
@@ -337,32 +324,31 @@ void update_users()
       getch();
       system("cls");
       system("color A");
-      update_users();
+      update_employee();
     }
     getch();
   }
+  system("cls");
 }
 
-void search_users()
+void search_employee()
 {
+  system("cls");
+  system("color A");
   int option;
-  int u_id;
-  int tmp_id;
-  char u_name[MAX], u_type[MAX];
-  char tmp_name[MAX], tmp_pass[MAX], tmp_type[MAX];
-  int goBack = 0; // Flag variable to control going back
+  int emp_id;
+  char emp_name[MAX], emp_pos[MAX];
 
   do
   {
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\xb3\xb0\xb3 Search Users \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Search Items]\n\n");
+    printf("\n\t\t\xb3\xb0\xb3 Search Stores \xb3\xb0\xb3\n\n");
 
     printf("\t\t1. Search by id\n");
-    printf("\t\t2. Search by username\n");
-    printf("\t\t3. Search by type\n");
+    printf("\t\t2. Search by name\n");
+    printf("\t\t3. Search by position\n");
     printf("\t\t4. Go Back\n");
     printf("\t\t---------------------\n");
     printf("\t\tOption -> ");
@@ -375,30 +361,33 @@ void search_users()
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      user = fopen("data\\user_logs.txt", "r");
+      printf("\n\t\t\xb3\xb0\xb3 Search by id \xb3\xb0\xb3\n\n");
+
+      user = fopen("data\\employee.dat", "rb");
       if (user == NULL)
       {
         printf("Unable to access file!\n");
         exit(1);
       }
       printf("\t\tEnter the ID -> ");
-      scanf("%d", &u_id);
-      system("color B");
+      scanf("%d", &emp_id);
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
+      system("color B");
+      printf("\t\t| %-4s | %-20s | %-10s | %-20s | %-10s | %-12s \n", "ID", "Name", "Position", "Address", "Phone", "Salary");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_name, tmp_pass, tmp_type) != EOF)
+      while (fread(&emp, sizeof(employee), 1, user) == 1)
       {
-        if (tmp_id == u_id)
+        if (emp.employee_id == emp_id)
         {
-          printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", tmp_id, tmp_name, tmp_pass, tmp_type);
+          printf("\t\t| %-4d | %-20s | %-10s | %-20s | %-10s | %-12.2f \n", emp.employee_id, emp.employee_name, emp.employee_position, emp.employee_address, emp.employee_phone, emp.employee_salary);
         }
       }
       fclose(user);
       printf("\n\t\tPress enter to continue! ");
+
       getch();
       system("cls");
       system("color A");
@@ -409,30 +398,34 @@ void search_users()
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      user = fopen("data\\user_logs.txt", "r");
+      printf("\n\t\t\xb3\xb0\xb3 Search by name \xb3\xb0\xb3\n\n");
+
+      user = fopen("data\\employee.dat", "rb");
       if (user == NULL)
       {
         printf("Unable to access file!\n");
         exit(1);
       }
-      printf("\t\tEnter the username -> ");
-      scanf("%s", u_name);
-      system("color B");
+      printf("\t\tEnter the Employee name -> ");
+      getchar();
+      scanf("%[^\n]s", emp_name);
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
+      system("color B");
+      printf("\t\t| %-4s | %-20s | %-10s | %-20s | %-10s | %-12s \n", "ID", "Name", "Position", "Address", "Phone", "Salary");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_name, tmp_pass, tmp_type) != EOF)
+      while (fread(&emp, sizeof(employee), 1, user) == 1)
       {
-        if (strcmp(strlwr(tmp_name), strlwr(u_name)) == 0)
+        if (emp.employee_id == emp_id)
         {
-          printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", tmp_id, tmp_name, tmp_pass, tmp_type);
+          printf("\t\t| %-4d | %-20s | %-10s | %-20s | %-10s | %-12.2f \n", emp.employee_id, emp.employee_name, emp.employee_position, emp.employee_address, emp.employee_phone, emp.employee_salary);
         }
       }
       fclose(user);
       printf("\n\t\tPress enter to continue! ");
+
       getch();
       system("cls");
       system("color A");
@@ -443,37 +436,40 @@ void search_users()
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      user = fopen("data\\user_logs.txt", "r");
+      printf("\n\t\t\xb3\xb0\xb3 Search by name \xb3\xb0\xb3\n\n");
+
+      user = fopen("data\\employee.dat", "rb");
       if (user == NULL)
       {
         printf("Unable to access file!\n");
         exit(1);
       }
-      printf("\t\tEnter the type -> ");
-      scanf("%s", u_type);
-      system("color B");
+      printf("\t\tEnter the Employee position -> ");
+      getchar();
+      scanf("%[^\n]s", emp_pos);
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
+      system("color B");
+      printf("\t\t| %-4s | %-20s | %-10s | %-20s | %-10s | %-12s \n", "ID", "Name", "Position", "Address", "Phone", "Salary");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_name, tmp_pass, tmp_type) != EOF)
+      while (fread(&emp, sizeof(employee), 1, user) == 1)
       {
-        if (strcmp(strlwr(tmp_type), strlwr(u_type)) == 0)
+        if (emp.employee_id == emp_id)
         {
-          printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", tmp_id, tmp_name, tmp_pass, tmp_type);
+          printf("\t\t| %-4d | %-20s | %-10s | %-20s | %-10s | %-12.2f \n", emp.employee_id, emp.employee_name, emp.employee_position, emp.employee_address, emp.employee_phone, emp.employee_salary);
         }
       }
       fclose(user);
       printf("\n\t\tPress enter to continue! ");
+
       getch();
       system("cls");
       system("color A");
       break;
 
     case 4:
-      goBack = 1; // Set the flag to go back
       system("cls");
       break;
 
@@ -485,51 +481,47 @@ void search_users()
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\n\t\t\t\t\tInvalid option! Please enter a valid option.\n\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
+
       getch();
       system("cls");
       system("color A");
     }
-
-  } while (!goBack);
-
-  return;
+  } while (option != 4);
 }
 
-void display_users()
+void display_employee()
 {
+  system("cls");
+  system("color A");
+  user = fopen("data\\employee.dat", "rb");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-  FILE *user = fopen("data\\user_logs.txt", "r");
+
   if (user == NULL)
   {
-    printf("Error opening user file");
+    printf("Unable to access file.\n");
     exit(1);
   }
-  i = 1;
+
   system("color B");
-  printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
+  printf("\t\t| %-4s | %-20s | %-10s | %-20s | %-10s | %-12s \n", "ID", "Name", "Position", "Address", "Phone", "Salary");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-  char username[MAX], password[MAX], type[MAX];
-  int id;
-  while (fscanf(user, "%d %s %s %s", &id, username, password, type) != EOF)
+
+  while (fread(&emp, sizeof(employee), 1, user) == 1)
   {
-    printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", id, username, password, type);
+    printf("\t\t| %-4d | %-20s | %-10s | %-20s | %-10s | %-12.2f \n", emp.employee_id, emp.employee_name, emp.employee_position, emp.employee_address, emp.employee_phone, emp.employee_salary);
   }
-  while (fscanf(user, "%d %s %s %s", &id, username, password, type) != EOF)
-  {
-    printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", id, username, password, type);
-  }
+  fclose(user);
   printf("\n\t\tPress enter to continue! ");
+
   getch();
   system("cls");
   system("color A");
-  fclose(user);
 }
 
-void add_log()
+void add_log_emp()
 {
-
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -557,7 +549,6 @@ void add_log()
         printf("\b \b"); // Move cursor back, print space, move cursor back again
       }
     }
-
     else
     {
       password[i] = ch;
@@ -581,7 +572,7 @@ void add_log()
   if (found)
   {
     system("cls");
-    manage_users();
+    manage_employee();
     exitProgram = false;
   }
 
@@ -604,7 +595,7 @@ void add_log()
     {
       system("cls");
       system("color A");
-      add_log();
+      add_log_emp();
     }
 
     else if (ch == '2')
@@ -625,18 +616,46 @@ void add_log()
       getch();
       system("cls");
       system("color A");
-      add_log();
+      add_log_emp();
     }
     system("cls");
     system("color A");
   }
 }
 
-void manage_users()
+void display()
+{
+  system("color A");
+  printf("\t\t--------------------------------------------------------------------------------------------\n");
+  printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+  printf("\t\t--------------------------------------------------------------------------------------------\n");
+
+  user = fopen("data\\employee.dat", "rb");
+  if (user == NULL)
+  {
+    printf("Unable to access file.\n");
+    exit(1);
+  }
+
+  system("color B");
+  printf("\t\t| %-3s | %-15s | %-15s | %-15s | %-8s | %-8s | %-8s\n", "ID", "Store", "Product", "Brand", "Price", "Quantity", "Status");
+  printf("\t\t--------------------------------------------------------------------------------------------\n");
+
+  while (fread(&emp, sizeof(employee), 1, user) == 1)
+  {
+    printf("\t\t| %-3d | %-15s | %-15s | %-15s | %-8.2s | %-8.2f\n", emp.employee_id, emp.employee_name, emp.employee_position, emp.employee_address, emp.employee_phone, emp.employee_salary);
+  }
+
+  fclose(user);
+  printf("\n\t\tPress enter to continue! ");
+  getch();
+  system("cls");
+  system("color A");
+}
+
+void manage_employee()
 {
   int option;
-  int goBack = 0; // Flag variable to control going back
-
   do
   {
     printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -644,11 +663,11 @@ void manage_users()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Manage Users \xb3\xb0\xb3\n\n");
     // printf("\t\t[Manage Users]\n\n");
-    printf("\t\t1. Create New Admin\n");
-    printf("\t\t2. Remove Users\n");
-    printf("\t\t3. Update Users\n");
-    printf("\t\t4. Search Users\n");
-    printf("\t\t5. Display Users\n");
+    printf("\t\t1. Add Employees\n");
+    printf("\t\t2. Remove Employees\n");
+    printf("\t\t3. Update Employees\n");
+    printf("\t\t4. Search Employees\n");
+    printf("\t\t5. Display Employees\n");
     printf("\t\t6. Go Back\n");
     printf("\t\t---------------------\n");
     printf("\t\tOption -> ");
@@ -658,31 +677,30 @@ void manage_users()
     {
     case 1:
       system("cls");
-      create_admin();
+      add_employee();
       break;
 
     case 2:
       system("cls");
-      remove_users();
+      remove_employee();
       break;
 
     case 3:
       system("cls");
-      update_users();
+      update_employee();
       break;
 
     case 4:
       system("cls");
-      search_users();
+      search_employee();
       break;
 
     case 5:
       system("cls");
-      display_users();
+      display_employee();
       break;
 
     case 6:
-      goBack = 1; // Set the flag to go back
       system("cls");
       break;
 
@@ -698,14 +716,7 @@ void manage_users()
       system("cls");
       system("color A");
     }
+  } while (option != 6);
 
-    if (goBack)
-    {
-      break; // Exit the outer loop if goBack flag is set
-    }
-
-  } while (1); // Infinite loop for managing users
-
-  // Return to the calling function (admin_panel) when goBack is set
   return;
 }
