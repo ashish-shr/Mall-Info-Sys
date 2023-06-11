@@ -4,13 +4,70 @@
 #include <stdbool.h>
 #include <string.h>
 #include <windows.h>
-#include "modules/home.c"
+#include "modules/login.c"
 #include "modules/loading_screen.c"
 
 #define MAX 100
 
 void loadingScreen();
+void lock();
 void credits();
+void login();
+
+void lock()
+{
+  int option;
+  int exitProgram = false; // Initialize exitProgram to false
+  do
+  {
+    system("cls");
+    system("color A");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\xb3\xb0\xb3 Welcome \xb3\xb0\xb3\n\n");
+    printf("\t\t1. Login\n");
+    printf("\t\t2. Exit\n");
+    printf("\t\t-------------\n");
+    printf("\t\tOption -> ");
+    scanf("%d", &option);
+
+    switch (option)
+    {
+    case 1:
+      system("cls");
+      login();
+      break;
+
+    case 2:
+      exitProgram = true; // Update the exitProgram flag to true
+      break;
+
+    default:
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+    }
+
+    if (!exitProgram)
+    {
+      system("cls");
+    }
+  } while (!exitProgram); // Check the exitProgram flag
+
+  // Exit the program
+  system("cls");
+  credits();
+  system("cls");
+  exit(0);
+}
 
 void mall_details()
 {
@@ -73,9 +130,8 @@ int main()
   {
     mall_details();
   }
+  lock();
   home();
-  system("cls");
-  credits();
   system("cls");
   return 0;
 }
