@@ -69,6 +69,32 @@ void lock()
   exit(0);
 }
 
+void ac_set()
+{
+  system("color A");
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\n\t\t\xb3\xb0\xb3 Create Account \xb3\xb0\xb3\n\n");
+  char user_name[MAX], password[MAX];
+  FILE *user;
+  user = fopen("data\\user_logs.txt", "w");
+  if (user == NULL)
+  {
+    printf("Failed to create about.dat\n");
+    exit(1);
+  }
+
+  printf("\t\tUsername -> ");
+  scanf(" %[^\n]s", user_name);
+  printf("\t\tPassword -> ");
+  scanf(" %[^\n]s", password);
+  printf("Press enter to continue!");
+  getch();
+  fclose(user);
+  system("cls");
+}
+
 void mall_details()
 {
   system("color A");
@@ -126,9 +152,11 @@ int main()
   system("color A");
   loadingScreen();
   mall = fopen("data\\about.dat", "rb");
-  if (mall == NULL)
+  user = fopen("data\\user_logs.txt", "r");
+  if (mall == NULL || user == NULL)
   {
     mall_details();
+    ac_set();
   }
   lock();
   home();
