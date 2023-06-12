@@ -27,11 +27,7 @@ The Mall Information System is a technology-driven solution that automates and s
 - Compile the main.c before running
 - Contribute and send pull request
     
-## Documentation 📃
-
-[Click here for detailed Documentation](https://drive.google.com/file/d/1zi1gW6-FtgYL2vPxnvCHDDNSFrT8ISE5/view?usp=sharing)
-
-
+    
 ## Authors ✒️
 
 [@ashishshrestha](https://github.com/ashish-shr/)
