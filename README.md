@@ -11,6 +11,9 @@ The Mall Information System is a technology-driven solution that automates and s
 - Item Management
 - User Management
 - Information Display
+- Backup and Recovery
+- Reset
+- Trash
 - Scalability and Flexibility
 
 
