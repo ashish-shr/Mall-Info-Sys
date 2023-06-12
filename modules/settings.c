@@ -41,6 +41,67 @@ void settings();
 void home();
 void add_log();
 
+void reset()
+{
+  system("color A");
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\n\t\t\xb3\xb0\xb3 Reset \xb3\xb0\xb3\n\n");
+  int option;
+  do
+  {
+    printf("\t\t1. Reset the system\n");
+    printf("\t\t2. Go Back\n");
+    printf("\t\t-------------\n");
+    printf("\t\tOption -> ");
+    scanf("%d", &option);
+    switch (option)
+    {
+    case 1:
+      remove("data\\about.dat");
+      remove("data\\employee.dat");
+      remove("data\\item.dat");
+      remove("data\\store.dat");
+      remove("data\\store.dat");
+      remove("data\\user_logs.txt");
+      remove("trash\\employee_del.dat");
+      remove("trash\\item_del.dat");
+      remove("trash\\store_del.dat");
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tSystem reset successfully! Please restart the program.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      exit(1);
+      break;
+
+    case 2:
+      system("cls");
+      settings();
+      break;
+
+    default:
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+    }
+
+  } while (option != 2);
+}
+
 void backup_rev()
 {
   system("color A");
@@ -214,7 +275,7 @@ void settings()
 
     case 2:
       system("cls");
-      printf("Reset the system\n");
+      reset();
       break;
 
     case 3:
