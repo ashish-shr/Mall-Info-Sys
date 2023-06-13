@@ -31,7 +31,6 @@ void lock()
     printf("\t\t-------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
-
     switch (option)
     {
     case 1:
@@ -89,7 +88,8 @@ void ac_set()
   scanf(" %[^\n]s", user_name);
   printf("\t\tPassword -> ");
   scanf(" %[^\n]s", password);
-  printf("Press enter to continue!");
+  fprintf(user, "%s\t%s\t%s\n", user_name, password, "admin");
+  printf("\t\tPress enter to continue!");
   getch();
   fclose(user);
   system("cls");
@@ -124,7 +124,7 @@ void mall_details()
   printf("\t\tMall Email -> ");
   scanf(" %[^\n]s", info.mall_email);
   fwrite(&info, sizeof(mall_info), 1, mall);
-  printf("Press enter to continue!");
+  printf("\t\tPress enter to continue!");
   getch();
   fclose(mall);
   system("cls");
@@ -158,6 +158,8 @@ int main()
     mall_details();
     ac_set();
   }
+  fclose(mall);
+  fclose(user);
   lock();
   home();
   system("cls");
