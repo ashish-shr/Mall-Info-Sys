@@ -24,7 +24,7 @@ void login()
     exit(1);
   }
   int user_id;
-  char username[MAX], password[MAX], ouser[MAX], opass[MAX], type[MAX];
+  char username[MAX], password[MAX], ouser[MAX], opass[MAX];
   printf("\n\t\t\xb3\xb0\xb3 Login \xb3\xb0\xb3\n\n");
   printf("\t\tUsername -> ");
   scanf("%s", username);
@@ -49,7 +49,7 @@ void login()
   }
   password[i] = '\0'; // Null-terminate the password string
   int found = 0;
-  while (fscanf(log, "%d %s %s %s", &user_id, ouser, opass, type) != EOF)
+  while (fscanf(log, "%s\t%s\n", ouser, opass) != EOF)
   {
     if ((strcmp(ouser, username) == 0) && (strcmp(opass, password) == 0))
     {

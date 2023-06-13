@@ -567,7 +567,7 @@ void add_log()
   }
   password[i] = '\0'; // Null-terminate the password string
   int found = 0;
-  while (fscanf(admin, "%d %s %s %s", &user_id, ouser, opass, type) != EOF)
+  while (fscanf(admin, "%s\t%s\t%s\n", ouser, opass, type) != EOF)
   {
     if ((strcmp(ouser, username) == 0) && (strcmp(opass, password) == 0) && (strcmp(type, "admin") == 0))
     {

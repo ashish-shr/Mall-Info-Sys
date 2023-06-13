@@ -40,9 +40,114 @@ typedef struct
 void settings();
 void home();
 void add_log();
+void reset();
+void reset_log();
 
+void reset_log()
+{
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+  printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+  printf("\t\t-------------------------------------------------------------------------------------------\n");
+
+  FILE *admin = fopen("data\\user_logs.txt", "r");
+  if (admin == NULL)
+  {
+    printf("Error opening admin file");
+    exit(1);
+  }
+  int user_id;
+  char username[MAX], password[MAX], ouser[MAX], opass[MAX], type[MAX];
+  printf("\n\t\t\xb3\xb0\xb3 Admin Login \xb3\xb0\xb3\n\n");
+  printf("\t\tUsername -> ");
+  scanf("%s", username);
+  printf("\t\tPassword -> ");
+  int i = 0;
+  while ((ch = getch()) != '\r')
+  {
+    if (ch == '\b')
+    {
+      if (i > 0)
+      {
+        i--;
+        printf("\b \b"); // Move cursor back, print space, move cursor back again
+      }
+    }
+
+    else
+    {
+      password[i] = ch;
+      i++;
+      printf("*");
+    }
+  }
+  password[i] = '\0'; // Null-terminate the password string
+  int found = 0;
+  while (fscanf(admin, "%s\t%s\t%s\n", ouser, opass, type) != EOF)
+  {
+    if ((strcmp(ouser, username) == 0) && (strcmp(opass, password) == 0) && (strcmp(type, "admin") == 0))
+    {
+      found = 1;
+      break;
+    }
+  }
+
+  fclose(admin);
+
+  if (found)
+  {
+    system("cls");
+    exitProgram = false;
+  }
+
+  else
+  {
+
+    system("cls");
+    system("color C");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\tUsername or password is incorrect!\n\n");
+    printf("\t\t\t\t\t1. Try Again\n");
+    printf("\t\t\t\t\t2. Go back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    ch = getche();
+    getch();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      reset_log();
+    }
+
+    else if (ch == '2')
+    {
+      system("cls");
+      settings();
+    }
+
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      reset_log();
+    }
+    system("cls");
+    system("color A");
+  }
+}
 void reset()
 {
+  reset_log();
   system("color A");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
@@ -62,7 +167,6 @@ void reset()
       remove("data\\about.dat");
       remove("data\\employee.dat");
       remove("data\\item.dat");
-      remove("data\\store.dat");
       remove("data\\store.dat");
       remove("data\\user_logs.txt");
       remove("trash\\employee_del.dat");
