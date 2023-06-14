@@ -614,7 +614,7 @@ void manage_employee()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\xb3\xb0\xb3 Manage Users \xb3\xb0\xb3\n\n");
+    printf("\n\t\t\xb3\xb0\xb3 Manage Employees \xb3\xb0\xb3\n\n");
     printf("\t\t1. Add Employees\n");
     printf("\t\t2. Remove Employees\n");
     printf("\t\t3. Update Employees\n");

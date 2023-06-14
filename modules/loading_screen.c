@@ -14,7 +14,7 @@ void loadingScreen()
   for (int i = 0; i < 15; i++)
   {
     printf(".");
-    Sleep(500);
+    Sleep(400);
   }
   system("cls");
 }

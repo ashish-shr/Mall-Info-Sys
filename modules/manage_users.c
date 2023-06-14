@@ -10,7 +10,7 @@ void home();
 void add_log();
 void login();
 void manage_users();
-void create_admin();
+void create_users();
 void display_users();
 void remove_users();
 void update_users();
@@ -20,13 +20,13 @@ int i, user_id;
 char ch;
 FILE *store = NULL, *item = NULL;
 
-void create_admin()
+void create_users()
 {
   char username[MAX], password[MAX];
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\n\t\t\xb3\xb0\xb3 Create Admin \xb3\xb0\xb3\n\n");
+  printf("\n\t\t\xb3\xb0\xb3 Create User \xb3\xb0\xb3\n\n");
 
   FILE *user = NULL;
   user = fopen("data\\user_logs.txt", "a+");
@@ -35,9 +35,7 @@ void create_admin()
     printf("Unable to access file.\n");
     exit(1);
   }
-  printf("\t\tAdmin Id -> ");
-  scanf("%d", &user_id);
-  printf("\t\tAdmin Username -> ");
+  printf("\t\tNew username -> ");
   scanf("%s", username);
 
   // Check if username already exists
@@ -71,7 +69,7 @@ void create_admin()
     {
       system("cls");
       system("color A");
-      create_admin();
+      create_users();
     }
     else if (ch == '2')
     {
@@ -90,7 +88,7 @@ void create_admin()
       getch();
       system("cls");
       system("color A");
-      create_admin();
+      create_users();
     }
     system("cls");
     system("color A");
@@ -99,7 +97,7 @@ void create_admin()
   // Clear the file pointer and move to the end of the file for writing
   fseek(user, 0, SEEK_END);
 
-  printf("\t\tAdmin Password -> ");
+  printf("\t\tNew password -> ");
 
   int i = 0;
   while (1)
@@ -125,20 +123,19 @@ void create_admin()
 
   password[i] = '\0'; // Add null character to mark the end of the password array
 
-  fprintf(user, "\n%d\t%s\t%s\t%s\n", user_id, username, password, "admin");
+  fprintf(user, "\n%s\t%s\t%s", username, password, "user");
   fclose(user);
-
   system("cls");
   system("color E");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-  printf("\n\t\t\tNew admin created successfully!\n");
-  printf("\n\t\t\tPress enter to login.\n");
+  printf("\n\t\t\tNew user created successfully!\n");
+  printf("\n\t\t\tPress enter to continue.\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   getch();
   system("cls");
-  login();
+  system("color A");
 }
 
 void remove_users()
@@ -470,17 +467,12 @@ void display_users()
   FILE *user = fopen("data\\user_logs.txt", "r");
   i = 1;
   system("color B");
-  printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
+  printf("\t\t| %-20s | %-20s | %-10s \n", "Username", "Password", "Type");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   char username[MAX], password[MAX], type[MAX];
-  int id;
-  while (fscanf(user, "%d %s %s %s", &id, username, password, type) != EOF)
+  while (fscanf(user, "%s\t%s\t%s\n", username, password, type) != EOF)
   {
-    printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", id, username, password, type);
-  }
-  while (fscanf(user, "%d %s %s %s", &id, username, password, type) != EOF)
-  {
-    printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", id, username, password, type);
+    printf("\t\t| %-20s | %-20s | %-10s \n", username, password, type);
   }
   printf("\n\t\tPress enter to continue! ");
   getch();
@@ -597,7 +589,7 @@ void manage_users()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Manage Users \xb3\xb0\xb3\n\n");
-    printf("\t\t1. Create New Admin\n");
+    printf("\t\t1. Create New User\n");
     printf("\t\t2. Remove Users\n");
     printf("\t\t3. Update Users\n");
     printf("\t\t4. Search Users\n");
@@ -610,7 +602,7 @@ void manage_users()
     {
     case 1:
       system("cls");
-      create_admin();
+      create_users();
       break;
 
     case 2:
