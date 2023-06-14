@@ -54,14 +54,12 @@ void lock()
       system("cls");
       system("color A");
     }
-
     if (!exitProgram)
     {
       system("cls");
     }
-  } while (!exitProgram); // Check the exitProgram flag
+  } while (!exitProgram);
 
-  // Exit the program
   system("cls");
   credits();
   system("cls");
@@ -83,7 +81,6 @@ void ac_set()
     printf("Failed to create about.dat\n");
     exit(1);
   }
-
   printf("\t\tUsername -> ");
   scanf(" %[^\n]s", user_name);
   printf("\t\tPassword -> ");
@@ -110,7 +107,6 @@ void mall_details()
     printf("Failed to create about.dat\n");
     exit(1);
   }
-
   printf("\t\tMall Name -> ");
   scanf(" %[^\n]s", info.mall_name);
   printf("\t\tMall Address -> ");
