@@ -85,7 +85,7 @@ void ac_set()
   scanf(" %[^\n]s", user_name);
   printf("\t\tPassword -> ");
   scanf(" %[^\n]s", password);
-  fprintf(user, "%s\t%s\t%s\n", user_name, password, "admin");
+  fprintf(user, "\n%s\t%s\t%s", user_name, password, "admin");
   printf("\t\tPress enter to continue!");
   getch();
   fclose(user);
