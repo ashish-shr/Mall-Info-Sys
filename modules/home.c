@@ -39,18 +39,15 @@ void trash()
       FILE *store = NULL;
       del_store = fopen("trash\\store_del.dat", "rb");
       store = fopen("data\\store.dat", "wb");
-
       if (store == NULL || del_store == NULL)
       {
         printf("Unable to access files.\n");
         exit(1);
       }
-
       while (fread(&sto, sizeof(stores), 1, del_store) == 1)
       {
         fwrite(&sto, sizeof(stores), 1, store);
       }
-
       fclose(store);
       fclose(del_store);
       system("color E");
@@ -59,7 +56,6 @@ void trash()
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\n\t\t\t\tStore data is restored successfully! Press enter to continue.\n\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-
       getch();
       system("cls");
       trash();
@@ -72,18 +68,15 @@ void trash()
       FILE *item = NULL;
       del_item = fopen("trash\\item_del.dat", "rb");
       item = fopen("data\\item.dat", "wb");
-
       if (del_item == NULL)
       {
         printf("Unable to access files.\n");
         exit(1);
       }
-
       while (fread(&itm, sizeof(items), 1, del_item) == 1)
       {
         fwrite(&itm, sizeof(items), 1, item);
       }
-
       fclose(item);
       fclose(del_item);
       system("color E");
@@ -103,18 +96,15 @@ void trash()
       FILE *user = NULL;
       del_user = fopen("trash\\employee_del.dat", "rb");
       user = fopen("data\\employee.dat", "wb");
-
       if (del_user == NULL)
       {
         printf("Unable to access files.\n");
         exit(1);
       }
-
       while (fread(&emp, sizeof(employee), 1, del_user) == 1)
       {
         fwrite(&emp, sizeof(employee), 1, user);
       }
-
       fclose(user);
       fclose(del_user);
       system("color E");
@@ -145,7 +135,6 @@ void trash()
       system("cls");
       system("color A");
     }
-
   } while (option != 4);
 }
 
@@ -157,7 +146,6 @@ void new_user()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Create New User \xb3\xb0\xb3\n\n");
-  // printf("\t\t[Create New]\n\n");
   printf("\t\tUser ID -> ");
   scanf("%d", &user_id);
   printf("\t\tUsername -> ");
@@ -182,7 +170,6 @@ void new_user()
       break;
     }
   }
-
   if (usernameExists)
   {
     system("cls");
@@ -204,7 +191,6 @@ void new_user()
       system("color A");
       new_user();
     }
-
     else if (ch == '2')
     {
       system("cls");
@@ -232,18 +218,19 @@ void new_user()
   fseek(user, 0, SEEK_END);
 
   printf("\t\tPassword -> ");
-
   int i = 0;
   while (1)
   {
     char ch = getch();
     if (ch == '\r') // If Enter key is pressed, break the loop
       break;
+
     else if (ch == '\b' && i > 0) // If Backspace key is pressed, decrement i and move back the cursor
     {
       i--;
       printf("\b \b");
     }
+
     else if (ch != '\b') // If any other key is pressed, store it in the password array and display asterisk on the screen
     {
       password[i] = ch;
@@ -256,10 +243,8 @@ void new_user()
 
   fprintf(user, "\n%d\t%s\t%s\t%s\n", user_id, username, password, "user");
   fclose(user);
-
   system("cls");
   system("color E");
-
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -275,6 +260,7 @@ void home()
 {
   int option;
   int exitProgram = false; // Initialize exitProgram to false
+
   do
   {
     system("color A");
@@ -291,7 +277,6 @@ void home()
     printf("\t\t-------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
-
     switch (option)
     {
     case 1:

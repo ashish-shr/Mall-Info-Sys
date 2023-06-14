@@ -12,11 +12,9 @@ void lock();
 
 void login()
 {
-
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-
   FILE *log = fopen("data\\user_logs.txt", "r");
   if (log == NULL)
   {
@@ -47,7 +45,9 @@ void login()
       printf("*");
     }
   }
+
   password[i] = '\0'; // Null-terminate the password string
+
   int found = 0;
   while (fscanf(log, "%s\t%s\n", ouser, opass) != EOF)
   {
@@ -57,9 +57,7 @@ void login()
       break;
     }
   }
-
   fclose(log);
-
   if (found)
   {
     system("cls");
@@ -87,7 +85,6 @@ void login()
       system("color A");
       login();
     }
-
     else if (ch == '2')
     {
       system("cls");

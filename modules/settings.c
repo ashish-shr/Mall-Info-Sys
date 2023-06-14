@@ -48,7 +48,6 @@ void reset_log()
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
-
   FILE *admin = fopen("data\\user_logs.txt", "r");
   if (admin == NULL)
   {
@@ -72,7 +71,6 @@ void reset_log()
         printf("\b \b"); // Move cursor back, print space, move cursor back again
       }
     }
-
     else
     {
       password[i] = ch;
@@ -80,7 +78,9 @@ void reset_log()
       printf("*");
     }
   }
+
   password[i] = '\0'; // Null-terminate the password string
+
   int found = 0;
   while (fscanf(admin, "%s\t%s\t%s\n", ouser, opass, type) != EOF)
   {
@@ -90,15 +90,12 @@ void reset_log()
       break;
     }
   }
-
   fclose(admin);
-
   if (found)
   {
     system("cls");
     exitProgram = false;
   }
-
   else
   {
 
@@ -120,13 +117,11 @@ void reset_log()
       system("color A");
       reset_log();
     }
-
     else if (ch == '2')
     {
       system("cls");
       settings();
     }
-
     else
     {
       system("cls");
@@ -202,7 +197,6 @@ void reset()
       system("cls");
       system("color A");
     }
-
   } while (option != 2);
 }
 
@@ -283,7 +277,6 @@ void backup_rev()
       system("cls");
       system("color A");
     }
-
   } while (option != 2);
 }
 
@@ -369,7 +362,6 @@ void settings()
     printf("\t\t-------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
-
     switch (option)
     {
     case 1:
@@ -414,6 +406,5 @@ void settings()
       system("cls");
       system("color A");
     }
-
   } while (option != 6);
 }

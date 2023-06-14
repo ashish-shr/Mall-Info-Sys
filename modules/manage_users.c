@@ -51,7 +51,6 @@ void create_admin()
       break;
     }
   }
-
   if (usernameExists)
   {
 
@@ -68,20 +67,17 @@ void create_admin()
     printf("\t\tOption -> ");
     ch = getche();
     getch();
-
     if (ch == '1')
     {
       system("cls");
       system("color A");
       create_admin();
     }
-
     else if (ch == '2')
     {
       system("cls");
       home();
     }
-
     else
     {
       system("cls");
@@ -134,7 +130,6 @@ void create_admin()
 
   system("cls");
   system("color E");
-
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -152,44 +147,35 @@ void remove_users()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Remove Users \xb3\xb0\xb3\n\n");
-
   bool found_user = false;
   int user_id, tmp_id;
   char tmp_user[MAX];
-
   printf("\t\tEnter ID of user to remove -> ");
   scanf("%d", &user_id);
-
   user = fopen("data\\user_logs.txt", "r");
   tmp_file = fopen("temp.dat", "w");
-
   if (user == NULL || user == NULL || tmp_file == NULL)
   {
     printf("Unable to remove users!\n");
     exit(1);
   }
-
   while (fscanf(user, "%d %[^\n]\n", &tmp_id, tmp_user) != EOF)
   {
     if (tmp_id == user_id)
     {
       found_user = true;
     }
-
     else
     {
       fprintf(tmp_file, "%d %s\n", tmp_id, tmp_user);
     }
   }
-
   fclose(user);
   fclose(tmp_file);
-
   if (found_user)
   {
     system("cls");
     system("color E");
-
     remove("data\\user_logs.txt");
     rename("temp.dat", "data\\user_logs.txt");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -203,12 +189,10 @@ void remove_users()
 
     system("cls");
   }
-
   else
   {
     system("cls");
     system("color E");
-
     remove("temp.dat");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
@@ -218,7 +202,6 @@ void remove_users()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
     system("color A");
-
     system("cls");
   }
 }
@@ -232,22 +215,15 @@ void update_users()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Update Users \xb3\xb0\xb3\n\n");
-
-  // printf("\t\t[Update Users]\n\n");
-
   printf("\t\tEnter ID of user to update -> ");
   scanf("%d", &user_id);
-
   user = fopen("data\\user_logs.txt", "r+");
-
   if (user == NULL)
   {
     printf("Unable to access file.\n");
     exit(1);
   }
-
   tmp_file = fopen("temp.dat", "w");
-
   if (tmp_file == NULL)
   {
     printf("Unable to create temporary file.\n");
@@ -270,7 +246,6 @@ void update_users()
       // Write the updated record to the temporary file
       fprintf(tmp_file, "%d %s %s %s\n", user_id, uname, upass, tmp_type);
     }
-
     else
     {
       // Write the existing record to the temporary file
@@ -296,7 +271,6 @@ void update_users()
     getch();
     system("cls");
   }
-
   else
   {
     remove("temp.dat");
@@ -310,21 +284,18 @@ void update_users()
     printf("\t\tOption -> ");
     ch = getche();
     getch();
-
     if (ch == '1')
     {
       system("cls");
       system("color A");
       update_users();
     }
-
     else if (ch == '2')
     {
       system("cls");
       system("color A");
       manage_users();
     }
-
     else
     {
       system("cls");
@@ -358,8 +329,6 @@ void search_users()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Search Users \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Search Items]\n\n");
-
     printf("\t\t1. Search by id\n");
     printf("\t\t2. Search by username\n");
     printf("\t\t3. Search by type\n");
@@ -367,7 +336,6 @@ void search_users()
     printf("\t\t---------------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
-
     switch (option)
     {
     case 1:
@@ -491,7 +459,6 @@ void search_users()
     }
 
   } while (!goBack);
-
   return;
 }
 
@@ -501,11 +468,6 @@ void display_users()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   FILE *user = fopen("data\\user_logs.txt", "r");
-  if (user == NULL)
-  {
-    printf("Error opening user file");
-    exit(1);
-  }
   i = 1;
   system("color B");
   printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
@@ -529,7 +491,6 @@ void display_users()
 
 void add_log()
 {
-
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -557,7 +518,6 @@ void add_log()
         printf("\b \b"); // Move cursor back, print space, move cursor back again
       }
     }
-
     else
     {
       password[i] = ch;
@@ -575,19 +535,15 @@ void add_log()
       break;
     }
   }
-
   fclose(admin);
-
   if (found)
   {
     system("cls");
     manage_users();
     exitProgram = false;
   }
-
   else
   {
-
     system("cls");
     system("color C");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -606,13 +562,11 @@ void add_log()
       system("color A");
       add_log();
     }
-
     else if (ch == '2')
     {
       system("cls");
       home();
     }
-
     else
     {
       system("cls");
@@ -643,7 +597,6 @@ void manage_users()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Manage Users \xb3\xb0\xb3\n\n");
-    // printf("\t\t[Manage Users]\n\n");
     printf("\t\t1. Create New Admin\n");
     printf("\t\t2. Remove Users\n");
     printf("\t\t3. Update Users\n");
@@ -653,7 +606,6 @@ void manage_users()
     printf("\t\t---------------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
-
     switch (option)
     {
     case 1:
@@ -698,7 +650,6 @@ void manage_users()
       system("cls");
       system("color A");
     }
-
     if (goBack)
     {
       break; // Exit the outer loop if goBack flag is set
