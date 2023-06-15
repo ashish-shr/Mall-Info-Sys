@@ -3,6 +3,8 @@
 
 #define MAX 100
 
+char ch;
+
 typedef struct
 {
   char mall_name[MAX];

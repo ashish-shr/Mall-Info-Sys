@@ -326,10 +326,9 @@ void search_users()
     printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\n\t\t\xb3\xb0\xb3 Search Users \xb3\xb0\xb3\n\n");
-    printf("\t\t1. Search by id\n");
-    printf("\t\t2. Search by username\n");
-    printf("\t\t3. Search by type\n");
-    printf("\t\t4. Go Back\n");
+    printf("\t\t1. Search by username\n");
+    printf("\t\t2. Search by type\n");
+    printf("\t\t3. Go Back\n");
     printf("\t\t---------------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
@@ -346,8 +345,8 @@ void search_users()
         printf("Unable to access file!\n");
         exit(1);
       }
-      printf("\t\tEnter the ID -> ");
-      scanf("%d", &u_id);
+      printf("\t\tEnter the username -> ");
+      scanf("%s", u_name);
       system("color B");
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -355,11 +354,11 @@ void search_users()
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_name, tmp_pass, tmp_type) != EOF)
+      while (fscanf(user, "\n%s\t%s\t%s", tmp_name, tmp_pass, tmp_type) != EOF)
       {
-        if (tmp_id == u_id)
+        if (strcmp(strlwr(tmp_name), strlwr(u_name)) == 0)
         {
-          printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", tmp_id, tmp_name, tmp_pass, tmp_type);
+          printf("\t\t| %-20s | %-20s | %-10s \n", tmp_name, tmp_pass, tmp_type);
         }
       }
       fclose(user);
@@ -380,20 +379,20 @@ void search_users()
         printf("Unable to access file!\n");
         exit(1);
       }
-      printf("\t\tEnter the username -> ");
-      scanf("%s", u_name);
+      printf("\t\tEnter the type -> ");
+      scanf("%s", u_type);
       system("color B");
       system("cls");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
       printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
+      printf("\t\t| %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
       printf("\t\t-------------------------------------------------------------------------------------------\n");
-      while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_name, tmp_pass, tmp_type) != EOF)
+      while (fscanf(user, "\n%s\t%s\t%s", tmp_name, tmp_pass, tmp_type) != EOF)
       {
-        if (strcmp(strlwr(tmp_name), strlwr(u_name)) == 0)
+        if (strcmp(strlwr(tmp_type), strlwr(u_type)) == 0)
         {
-          printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", tmp_id, tmp_name, tmp_pass, tmp_type);
+          printf("\t\t| %-20s | %-20s | %-10s \n", tmp_name, tmp_pass, tmp_type);
         }
       }
       fclose(user);
@@ -404,40 +403,6 @@ void search_users()
       break;
 
     case 3:
-      system("cls");
-      printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
-      printf("\t\t-------------------------------------------------------------------------------------------\n");
-      user = fopen("data\\user_logs.txt", "r");
-      if (user == NULL)
-      {
-        printf("Unable to access file!\n");
-        exit(1);
-      }
-      printf("\t\tEnter the type -> ");
-      scanf("%s", u_type);
-      system("color B");
-      system("cls");
-      printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
-      printf("\t\t-------------------------------------------------------------------------------------------\n");
-      printf("\t\t| %-15s | %-20s | %-20s | %-10s \n", "I.D.", "Username", "Password", "Type");
-      printf("\t\t-------------------------------------------------------------------------------------------\n");
-      while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_name, tmp_pass, tmp_type) != EOF)
-      {
-        if (strcmp(strlwr(tmp_type), strlwr(u_type)) == 0)
-        {
-          printf("\t\t| %-15d | %-20s | %-20s | %-10s \n", tmp_id, tmp_name, tmp_pass, tmp_type);
-        }
-      }
-      fclose(user);
-      printf("\n\t\tPress enter to continue! ");
-      getch();
-      system("cls");
-      system("color A");
-      break;
-
-    case 4:
       goBack = 1; // Set the flag to go back
       system("cls");
       break;
@@ -467,12 +432,12 @@ void display_users()
   FILE *user = fopen("data\\user_logs.txt", "r");
   i = 1;
   system("color B");
-  printf("\t\t| %-20s | %-20s | %-10s \n", "Username", "Password", "Type");
+  printf("\t\t| %-20s   | %-20s   | %-10s \n", "Username", "Password", "Type");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   char username[MAX], password[MAX], type[MAX];
   while (fscanf(user, "%s\t%s\t%s\n", username, password, type) != EOF)
   {
-    printf("\t\t| %-20s | %-20s | %-10s \n", username, password, type);
+    printf("\t\t| %-20s   | %-20s   | %-10s \n", username, password, type);
   }
   printf("\n\t\tPress enter to continue! ");
   getch();
