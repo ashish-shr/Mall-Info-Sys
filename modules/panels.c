@@ -52,12 +52,14 @@ void add_stores()
   {
     count++;
   }
+  fclose(store);
   printf("\t\tNo. of stores -> ");
   scanf("%d", &num);
   if (count <= max_stores)
   {
     for (int i = 0; i < num; i++)
     {
+      store = fopen("data\\store.dat", "ab");
       exists = false;
       int tmp_id;
       printf("\t\tStore ID -> ");
@@ -73,6 +75,7 @@ void add_stores()
       }
       if (exists)
       {
+        fclose(store);
         system("cls");
         system("color E");
         printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -117,7 +120,6 @@ void add_stores()
       }
       else
       {
-        store = fopen("data\\store.dat", "ab");
         backup = fopen("backup\\store_rev.dat", "ab");
         store_del = fopen("trash\\store_del.dat", "ab");
         if (store == NULL)
@@ -148,10 +150,12 @@ void add_stores()
         fwrite(&sto, sizeof(stores), 1, store_del);
         printf("\n");
       }
+      fclose(store);
+      fclose(backup);
+      fclose(store_del);
     }
-    fclose(store);
-    fclose(backup);
-    fclose(store_del);
+
+    system("cls");
   }
   else
   {
@@ -177,21 +181,24 @@ void remove_stores()
   char store_name[MAX];
   char ch;
   int s_id;
+
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Remove Stores \xb3\xb0\xb3\n\n");
+
   printf("\t\tEnter the ID of store to remove -> ");
   scanf("%d", &s_id);
   printf("\t\tEnter name of store to remove -> ");
   scanf(" %[^\n]", store_name); // Note the space before % to consume leading whitespace
-
   getchar();
   // Consume the newline character entered after the store name
+
   FILE *store = fopen("data\\store.dat", "rb+");
   FILE *item = fopen("data\\item.dat", "rb+");
   FILE *backup_store = fopen("backup\\store_rev.dat", "rb+");
   FILE *backup_item = fopen("backup\\item_rev.dat", "rb+");
+
   if (store == NULL)
   {
     printf("Unable to access store file.\n");
@@ -202,6 +209,7 @@ void remove_stores()
     printf("Unable to access item file.\n");
     exit(1);
   }
+
   FILE *tmp_store_file = fopen("temp_store.dat", "wb");
   FILE *tmp_item_file = fopen("temp_item.dat", "wb");
   FILE *tmp_store_rev = fopen("temp_store_rev.dat", "wb");
@@ -211,6 +219,7 @@ void remove_stores()
     printf("Unable to create the temporary files.\n");
     exit(1);
   }
+
   bool found = false;
 
   // Read records from the original store file and write to the temporary store file
@@ -246,6 +255,7 @@ void remove_stores()
   fclose(tmp_item_file);
   fclose(tmp_store_rev);
   fclose(tmp_item_rev);
+
   if (found)
   {
     // Delete the original store file
@@ -263,8 +273,10 @@ void remove_stores()
     // Rename the temporary item file to the original item file name
     rename("temp_item.dat", "data\\item.dat");
     rename("temp_item_rev.dat", "backup\\item_rev.dat");
+
     system("cls");
     system("color E");
+
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -273,6 +285,7 @@ void remove_stores()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
     system("color A");
+
     system("cls");
   }
   else
@@ -338,8 +351,46 @@ void update_stores()
   backup = fopen("backup\\store_rev.dat", "rb+");
   if (store == NULL)
   {
-    printf("Unable to access file.\n");
-    exit(1);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\tStore with ID %d does not exist.\n\n", store_id);
+    printf("\n\t\t\t\t\tPlease enter valid store id.\n\n");
+    printf("\t\t\t\t\t1. Try Again\n");
+    printf("\t\t\t\t\t2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    ch = getche();
+    getch();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      update_stores();
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      store_panel();
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      update_stores();
+    }
+    getch();
   }
 
   // Search for the store based on the ID
@@ -389,6 +440,7 @@ void update_stores()
     printf("\n\t\t\tPress enter to continue.\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
+    system("cls");
     system("color A");
   }
   else
@@ -693,25 +745,62 @@ void add_items()
   printf("\n\t\t\xb3\xb0\xb3 Add Products \xb3\xb0\xb3\n\n");
   FILE *item_del = NULL;
   item = fopen("data\\item.dat", "ab");
+  store = fopen("data\\store.dat", "rb");
   backup = fopen("backup\\item_rev.dat", "ab");
   item_del = fopen("trash\\item_del.dat", "ab");
-  if (item == NULL)
-  {
-    printf("Unable to access file.\n");
-    exit(1);
-  }
-  store = fopen("data\\store.dat", "rb");
-  if (store == NULL)
-  {
-    printf("Unable to access file.\n");
-    exit(1);
-  }
   char store_name[MAX];
   int tmp_id;
   printf("\t\tProduct ID -> ");
   scanf("%d", &tmp_id);
   printf("\t\tStore Name -> ");
   scanf(" %[^\n]s", store_name);
+  if (item == NULL && store == NULL)
+  {
+    fclose(item);
+    fclose(store);
+    fclose(backup);
+    fclose(item_del);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\t%s store does not exist.\n", store_name);
+    printf("\n\t\t\t\t\tPlease enter a valid store.\n\n");
+    printf("\n\t\t\t\t\t1. Try Again\n");
+    printf("\n\t\t\t\t\t2. Go Back\n\n");
+    printf("\t\t------------------------------------------------------------------\n");
+    printf("\t\tOption -> ");
+    char ch = getche();
+    getch();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      add_items();
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      item_panel();
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      add_items();
+    }
+  }
+
   while (fread(&sto, sizeof(stores), 1, store) == 1)
   {
     if ((strcmp(sto.store_name, store_name)) == 0)
@@ -749,6 +838,11 @@ void add_items()
       fwrite(&itm, sizeof(items), 1, item_del);
       printf("\n");
     }
+    fclose(item);
+    fclose(store);
+    fclose(backup);
+    fclose(item_del);
+    system("cls");
   }
   else
   {
@@ -791,11 +885,11 @@ void add_items()
       system("color A");
       add_items();
     }
+    fclose(item);
+    fclose(store);
+    fclose(backup);
+    fclose(item_del);
   }
-  fclose(item);
-  fclose(store);
-  fclose(backup);
-  fclose(item_del);
 }
 
 void remove_items()
@@ -812,19 +906,50 @@ void remove_items()
   scanf("%d", &item_id);
   FILE *item = fopen("data\\item.dat", "rb+");
   FILE *backup_item = fopen("backup\\item_rev.dat", "wb");
-  if (item == NULL || backup_item == NULL)
+  if (item == NULL)
   {
-    printf("Unable to access file.\n");
-    exit(1);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\tProduct with ID %d does not exist.\n\n", item_id);
+    printf("\n\t\t\t\t\tPlease enter a valid product ID.\n\n");
+    printf("\t\t\t\t\t1. Try Again\n");
+    printf("\t\t\t\t\t2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    char ch = getche();
+    getch();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      remove_items(); // Call the function recursively to try again
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      item_panel(); // Go back to the item panel
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      item_panel(); // Go back to the item panel
+    }
   }
   FILE *tmp_file = fopen("temp.dat", "wb");
   FILE *tmp_item_rev = fopen("temp_item_rev.dat", "wb");
-  if (tmp_file == NULL || tmp_item_rev == NULL)
-  {
-    printf("Unable to create the temporary file.\n");
-    exit(1);
-  }
-
   bool found = false; // Flag to track if item was found
 
   // Read records from the original file and write to the temporary file
@@ -932,8 +1057,45 @@ void update_items()
 
   if (item == NULL)
   {
-    printf("Unable to access file.\n");
-    exit(1);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\tProduct with ID %d does not exist.\n\n", item_id);
+    printf("\n\t\t\t\t\tPlease enter valid product id.\n\n");
+    printf("\t\t\t\t\t1. Try Again\n");
+    printf("\t\t\t\t\t2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    ch = getche();
+    getch();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      update_items();
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      item_panel();
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      update_items();
+    }
   }
 
   // Search for the store based on the ID
@@ -968,7 +1130,7 @@ void update_items()
       break; // Exit the loop since the update is done
     }
   }
-
+  system("cls");
   // Close the file
   fclose(item);
   fclose(backup);

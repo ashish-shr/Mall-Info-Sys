@@ -153,8 +153,9 @@ void reset()
   int option;
   do
   {
-    printf("\t\t1. Reset the system\n");
-    printf("\t\t2. Go Back\n");
+    printf("\t\t1. Keep Backup and Reset\n");
+    printf("\t\t2. Reset all\n");
+    printf("\t\t3. Go Back\n");
     printf("\t\t-------------\n");
     printf("\t\tOption -> ");
     scanf("%d", &option);
@@ -183,6 +184,31 @@ void reset()
       break;
 
     case 2:
+      remove("data\\about.dat");
+      remove("data\\employee.dat");
+      remove("data\\item.dat");
+      remove("data\\store.dat");
+      remove("data\\user_logs.txt");
+      remove("trash\\employee_del.dat");
+      remove("trash\\item_del.dat");
+      remove("trash\\store_del.dat");
+      remove("backup\\item_rev.dat");
+      remove("backup\\store_rev.dat");
+      remove("backup\\employee_rev.dat");
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tSystem reset successfully! Please restart the program.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      exit(1);
+      break;
+
+    case 3:
       system("cls");
       settings();
       break;
@@ -199,7 +225,7 @@ void reset()
       system("cls");
       system("color A");
     }
-  } while (option != 2);
+  } while (option != 3);
 }
 
 void backup_rev()

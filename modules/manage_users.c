@@ -51,10 +51,9 @@ void create_users()
   }
   if (usernameExists)
   {
-
+    fclose(user);
     system("cls");
     system("color E");
-
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");

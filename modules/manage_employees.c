@@ -43,8 +43,47 @@ void add_employee()
   employee_del = fopen("trash\\employee_del.dat", "ab");
   if (user == NULL)
   {
-    printf("Unable to access file.\n");
-    exit(1);
+    fclose(user);
+    fclose(backup);
+    fclose(employee_del);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\t    Unable to create employee file.\n\n");
+    printf("\t\t\t\t\t    1. Try Again\n");
+    printf("\t\t\t\t\t    2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    ch = getchar();
+    getchar();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      add_employee();
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      manage_employee();
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      add_employee();
+    }
   }
   int i, num;
   printf("\t\tNo. of employees -> ");
@@ -93,8 +132,45 @@ void remove_employee()
   backup = fopen("backup\\employee_rev.dat", "rb+");
   if (user == NULL)
   {
-    printf("Unable to access employee file.\n");
-    exit(1);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\t    Employee '%s' does not exist.\n\n", emp_name);
+    printf("\n\t\t\t\t\t    Please enter a valid employee name.\n\n");
+    printf("\t\t\t\t\t    1. Try Again\n");
+    printf("\t\t\t\t\t    2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    ch = getchar();
+    getchar();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      remove_employee();
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      manage_employee();
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      remove_employee();
+    }
   }
   FILE *tmp_emp_file = fopen("temp_emp.dat", "wb");
   FILE *tmp_emp_rev = fopen("temp_emp_rev.dat", "wb");
@@ -207,8 +283,45 @@ void update_employee()
   backup = fopen("backup\\employee_rev.dat", "rb+");
   if (user == NULL)
   {
-    printf("Unable to access file.\n");
-    exit(1);
+    system("cls");
+    system("color E");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\t\t\tStore with ID %d does not exist.\n\n", emp_id);
+    printf("\n\t\t\t\t\tPlease enter valid store id.\n\n");
+    printf("\t\t\t\t\t1. Try Again\n");
+    printf("\t\t\t\t\t2. Go Back\n\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n\n");
+    printf("\t\tOption -> ");
+    ch = getche();
+    getch();
+    if (ch == '1')
+    {
+      system("cls");
+      system("color A");
+      update_employee();
+    }
+    else if (ch == '2')
+    {
+      system("cls");
+      system("color A");
+      manage_employee();
+    }
+    else
+    {
+      system("cls");
+      system("color C");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\t\t\tInvalid option! Press enter to continue.\n\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      getch();
+      system("cls");
+      system("color A");
+      update_employee();
+    }
   }
 
   // Search for the store based on the ID
