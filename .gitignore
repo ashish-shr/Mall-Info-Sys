@@ -6,3 +6,7 @@ data/*.txt
 trash/*.dat
 backup/*.dat
 *.dat
+backup/store_rev.dat
+*.txt
+*.dat
+*.dat
