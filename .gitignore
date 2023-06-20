@@ -1,2 +1,8 @@
-
+*.dat
 *.exe
+*.txt
+data/*.dat
+data/*.txt
+trash/*.dat
+backup/*.dat
+*.dat
