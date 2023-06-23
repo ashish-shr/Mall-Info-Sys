@@ -355,13 +355,13 @@ void about_system()
   printf("\t\t--------------------------------------------------------------------------\n");
   printf("\t\t| System Name      || %s\n", "Mall InfoSys");
   printf("\t\t--------------------------------------------------------------------------\n");
-  printf("\t\t| System Version   || %s\n", "V.1.0");
+  printf("\t\t| System Version   || %s\n", "V.2.0");
   printf("\t\t--------------------------------------------------------------------------\n");
   printf("\t\t| Languages Used   || %s\n", "C");
   printf("\t\t--------------------------------------------------------------------------\n");
   printf("\t\t| Libraries Used   || %s\n", "stdio, conio, string, windows, stdlib, stdbool");
   printf("\t\t--------------------------------------------------------------------------\n");
-  printf("\t\t| Project Link     || %s\n", "https://github.com/ashish-shr");
+  printf("\t\t| Project Link     || %s\n", "https://github.com/ashish-shr/Mall-Info-Sys/");
   printf("\t\t--------------------------------------------------------------------------\n");
   printf("\t\t| COPYRIGHT %s\n", "2023. Mall InfoSys. All rights reserved.");
   printf("\t\t--------------------------------------------------------------------------\n");

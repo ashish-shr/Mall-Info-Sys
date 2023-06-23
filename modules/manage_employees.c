@@ -90,6 +90,11 @@ void add_employee()
   scanf("%d", &num);
   for (i = 0; i < num; i++)
   {
+    system("cls");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\xb3\xb0\xb3 Add Employee \xb3\xb0\xb3\n\n");
     printf("\t\tEmployee ID -> ");
     scanf(" %d", &emp.employee_id);
     printf("\t\tEmployee Name -> ");

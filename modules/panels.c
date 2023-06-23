@@ -59,6 +59,11 @@ void add_stores()
   {
     for (int i = 0; i < num; i++)
     {
+      system("cls");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\xb3\xb0\xb3 Add Stores \xb3\xb0\xb3\n\n");
       store = fopen("data\\store.dat", "ab");
       exists = false;
       int tmp_id;
@@ -815,6 +820,12 @@ void add_items()
     scanf("%d", &num);
     for (int i = 0; i < num; i++)
     {
+      system("cls");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
+      printf("\t\t-------------------------------------------------------------------------------------------\n");
+      printf("\n\t\t\xb3\xb0\xb3 Add Products \xb3\xb0\xb3\n\n");
+
       strcpy(itm.sto_name, store_name); // Assign the store name to the structure field
 
       itm.item_id = tmp_id;
@@ -836,7 +847,6 @@ void add_items()
       fwrite(&itm, sizeof(items), 1, item);
       fwrite(&sto, sizeof(stores), 1, backup);
       fwrite(&itm, sizeof(items), 1, item_del);
-      printf("\n");
     }
     fclose(item);
     fclose(store);

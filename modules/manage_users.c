@@ -144,10 +144,8 @@ void remove_users()
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Remove Users \xb3\xb0\xb3\n\n");
   bool found_user = false;
-  int user_id, tmp_id;
-  char tmp_user[MAX];
-  printf("\t\tEnter ID of user to remove -> ");
-  scanf("%d", &user_id);
+  char user_name[MAX];
+  char tmp_user[MAX], tmp_pass[MAX], tmp_type[MAX];
   user = fopen("data\\user_logs.txt", "r");
   tmp_file = fopen("temp.dat", "w");
   if (user == NULL || user == NULL || tmp_file == NULL)
@@ -155,15 +153,17 @@ void remove_users()
     printf("Unable to remove users!\n");
     exit(1);
   }
-  while (fscanf(user, "%d %[^\n]\n", &tmp_id, tmp_user) != EOF)
+  printf("\t\tEnter name of user to remove -> ");
+  scanf(" %[^\n]", user_name);
+  while (fscanf(user, "\n%s\t%s\t%s\n", tmp_user, tmp_pass, tmp_type) != EOF)
   {
-    if (tmp_id == user_id)
+    if (strcmp(strlwr(tmp_user), strlwr(user_name)) == 0)
     {
       found_user = true;
     }
     else
     {
-      fprintf(tmp_file, "%d %s\n", tmp_id, tmp_user);
+      fprintf(tmp_file, "%s\t%s\t%s\n", tmp_user, tmp_pass, tmp_pass);
     }
   }
   fclose(user);
@@ -177,7 +177,7 @@ void remove_users()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\t\t\t  User with ID %d has been removed from user_logs.txt.\n", user_id);
+    printf("\n\t\t\t\t\t  User %s has been removed successfully.\n", user_name);
     printf("\n\t\t\t\t\t  Press enter to continue.\n\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
@@ -193,7 +193,7 @@ void remove_users()
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
-    printf("\n\t\t\t\t\t  User with ID %d does not exist.\n\n", user_id);
+    printf("\n\t\t\t\t\t  User %s does not exist.\n\n", user_name);
     printf("\n\t\t\t\t\t  Press enter to continue.\n\n");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
     getch();
@@ -205,14 +205,15 @@ void remove_users()
 void update_users()
 {
   int tmp_id;
+  char user_name[MAX];
   char tmp_uname[MAX], tmp_upass[MAX], tmp_type[MAX];
   char uname[MAX], upass[MAX], type[MAX];
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Update Users \xb3\xb0\xb3\n\n");
-  printf("\t\tEnter ID of user to update -> ");
-  scanf("%d", &user_id);
+  printf("\t\tEnter name of user to remove -> ");
+  scanf(" %[^\n]", user_name);
   user = fopen("data\\user_logs.txt", "r+");
   if (user == NULL)
   {
@@ -228,9 +229,9 @@ void update_users()
   }
 
   // Search for the user based on the ID
-  while (fscanf(user, "%d %s %s %s", &tmp_id, tmp_uname, tmp_upass, tmp_type) != EOF)
+  while (fscanf(user, "\n%s\t%s\t%s\n", tmp_uname, tmp_upass, tmp_type) != EOF)
   {
-    if (tmp_id == user_id)
+    if (strcmp(strlwr(tmp_uname), strlwr(user_name)) == 0)
     {
       found = true; // ID found in the file
 
@@ -240,12 +241,12 @@ void update_users()
       scanf("%s", upass);
 
       // Write the updated record to the temporary file
-      fprintf(tmp_file, "%d %s %s %s\n", user_id, uname, upass, tmp_type);
+      fprintf(tmp_file, "%s\t%s\t%s\n", uname, upass, tmp_type);
     }
     else
     {
       // Write the existing record to the temporary file
-      fprintf(tmp_file, "%d %s %s %s\n", tmp_id, tmp_uname, tmp_upass, tmp_type);
+      fprintf(tmp_file, "%s\t%s\t%s\n", tmp_uname, tmp_upass, tmp_type);
     }
   }
 
@@ -260,8 +261,10 @@ void update_users()
   if (found)
   {
     system("cls");
-    printf("\t\t------------------------------------------------------------------\n");
-    printf("\n\t\t\tUser with ID %d has been updated.\n", user_id);
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Notify\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\tUser %s has been updated.\n", user_name);
     printf("\n\t\t\tPress enter to continue.\n\n");
     printf("\t\t------------------------------------------------------------------\n");
     getch();
@@ -272,8 +275,10 @@ void update_users()
     remove("temp.dat");
     system("cls");
     system("color E");
-    printf("\t\t------------------------------------------------------------------\n");
-    printf("\n\t\t\tUser with ID %d does not exist.\n", user_id);
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\t\t\t\t\t\t    \xdb\xdb\xdb\xb3Warning\xb3\xdb\xdb\xdb\n");
+    printf("\t\t-------------------------------------------------------------------------------------------\n");
+    printf("\n\t\t\tUser %s does not exist.\n", user_name);
     printf("\n\t\t\t 1. Try Again\n");
     printf("\n\t\t\t 2. Go Back\n\n");
     printf("\t\t------------------------------------------------------------------\n");
