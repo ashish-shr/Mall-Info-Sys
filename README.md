@@ -4,7 +4,7 @@
 The Mall Information System is a technology-driven solution that automates and streamlines administrative tasks in shopping malls. It allows mall administrators to manage stores, and user accounts, and provide detailed information to visitors. The system improves efficiency, and communication, and enhances the overall shopping experience.
 
 
-#🪶Key Features 
+## 🪶Key Features 
 
 - Mall Administration
 - Store, Item, Employee, and User Management
@@ -14,7 +14,7 @@ The Mall Information System is a technology-driven solution that automates and s
 - Scalability and Flexibility
 
 
-#🎯Objective and Benefits 
+## 🎯Objective and Benefits 
 
 - To develop a console-based application to manage and streamline mall operations.
 - Design and develop a comprehensive system to manage mall operations using C programming.
@@ -23,14 +23,14 @@ The Mall Information System is a technology-driven solution that automates and s
 - Improved efficiency in-store management, enhanced customer experience, and increased revenue.
 
 
-#🧊System Architecture 
+## 🧊System Architecture 
 
 - User Interface: Console-based interface for users and administrators.
 - Database: Store and retrieve data using file handling in C.
 - Logic: Implement functionality and operations in C programming language.
 
 
-#⚙️Technology Used
+## ⚙️Technology Used
 
 - Programming Language: C
 - Standard Libraries: Loops, standard IO
@@ -40,7 +40,7 @@ The Mall Information System is a technology-driven solution that automates and s
 - File Handling: Read and write data to files in C.
 
 
-#⛏️Challenges
+## ⛏️Challenges
 
 - User Interface
 - Data Management
