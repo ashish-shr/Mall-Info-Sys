@@ -1,7 +1,8 @@
 
 # Mall Information System 🏬
 
-The Mall Information System is a technology-driven solution that automates and streamlines administrative tasks in shopping malls. It allows mall administrators to manage stores, and user accounts, and provide detailed information to visitors. The system improves efficiency, and communication, and enhances the overall shopping experience.
+The Mall Information System, developed using C programming, aims to streamline mall operations and improve user experience.
+By implementing this console-based application, we can enhance store management, item management, and employee management.
 
 
 ## 🪶Key Features 
