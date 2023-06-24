@@ -4,7 +4,6 @@
 The Mall Information System, developed using C programming, aims to streamline mall operations and improve user experience.
 By implementing this console-based application, we can enhance store management, item management, and employee management.
 
-
 ## 🪶Key Features 
 
 - Mall Administration
@@ -13,7 +12,6 @@ By implementing this console-based application, we can enhance store management,
 - Backup and Recovery
 - Reset and Trash
 - Scalability and Flexibility
-
 
 ## 🎯Objective and Benefits 
 
@@ -30,7 +28,6 @@ By implementing this console-based application, we can enhance store management,
 - Database: Store and retrieve data using file handling in C.
 - Logic: Implement functionality and operations in C programming language.
 
-
 ## ⚙️Technology Used
 
 - Programming Language: C
@@ -40,14 +37,12 @@ By implementing this console-based application, we can enhance store management,
 - Structure: Store block data
 - File Handling: Read and write data to files in C.
 
-
 ## ⛏️Challenges
 
 - User Interface
 - Data Management
 - Error Handling
 - Accessibility
-
 
 ## 🏃‍♂️Installation 
 
@@ -59,11 +54,9 @@ By implementing this console-based application, we can enhance store management,
 - Compile the main.c before running
 - Contribute and send a pull request
     
-    
 ## ✒️Authors 
 
 [@ashishshrestha](https://github.com/ashish-shr/)
-
 
 ## 🤔FAQ 
 
