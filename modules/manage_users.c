@@ -212,7 +212,7 @@ void update_users()
   printf("\t\t\t\t\t\t  \xdb\xdb\xdb\xb3Mall InfoSys\xb3\xdb\xdb\xdb\n");
   printf("\t\t-------------------------------------------------------------------------------------------\n");
   printf("\n\t\t\xb3\xb0\xb3 Update Users \xb3\xb0\xb3\n\n");
-  printf("\t\tEnter name of user to remove -> ");
+  printf("\t\tEnter name of user to update -> ");
   scanf(" %[^\n]", user_name);
   user = fopen("data\\user_logs.txt", "r+");
   if (user == NULL)

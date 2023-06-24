@@ -918,6 +918,8 @@ void remove_items()
   FILE *backup_item = fopen("backup\\item_rev.dat", "wb");
   if (item == NULL)
   {
+    fclose(item);
+    fclose(backup_item);
     system("cls");
     system("color E");
     printf("\t\t-------------------------------------------------------------------------------------------\n");
@@ -960,6 +962,7 @@ void remove_items()
   }
   FILE *tmp_file = fopen("temp.dat", "wb");
   FILE *tmp_item_rev = fopen("temp_item_rev.dat", "wb");
+
   bool found = false; // Flag to track if item was found
 
   // Read records from the original file and write to the temporary file
@@ -1025,12 +1028,14 @@ void remove_items()
     {
       system("cls");
       system("color A");
+
       remove_items(); // Call the function recursively to try again
     }
     else if (ch == '2')
     {
       system("cls");
       system("color A");
+
       item_panel(); // Go back to the item panel
     }
     else
@@ -1045,6 +1050,7 @@ void remove_items()
       getch();
       system("cls");
       system("color A");
+
       item_panel(); // Go back to the item panel
     }
   }
@@ -1141,6 +1147,7 @@ void update_items()
     }
   }
   system("cls");
+
   // Close the file
   fclose(item);
   fclose(backup);
