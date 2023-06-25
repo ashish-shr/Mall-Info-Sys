@@ -1,5 +1,5 @@
 
-# Mall Information System 🏬
+# 🏬Mall Information System 
 
 The Mall Information System, developed using C programming, aims to streamline mall operations and improve user experience.
 By implementing this console-based application, we can enhance store management, item management, and employee management.
